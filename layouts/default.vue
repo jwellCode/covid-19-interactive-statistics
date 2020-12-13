@@ -13,7 +13,7 @@ html {
 
 body {
   @apply bg-white;
-  @apply text-gray-600;
+  @apply text-coolGray-600;
 }
 
 .js-focus-visible :focus:not(.focus-visible) {
