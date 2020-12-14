@@ -30,7 +30,7 @@ module.exports = {
   },
 
   /*
-   * Variants configuration
+   * Plugins configuration
    * See: https://tailwindcss.com/docs/plugins
    */
   plugins: [],
