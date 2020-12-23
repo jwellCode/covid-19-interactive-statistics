@@ -1,3 +1,13 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer utilities {
+  .banner {
+    width: 100%;
+    height: 66%;
+    background: #000;
+    background: linear-gradient(90deg, #97266d, #434190);
+    clip-path: url(#banner);
+  }
+}
