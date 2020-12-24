@@ -1,5 +1,5 @@
 <template>
-  <header class="overflow-hidden banner">
+  <header class="banner">
     <Particles :options="particlesOptions" id="particles" class="canvas" />
   </header>
 </template>
@@ -54,21 +54,22 @@ export default {
 
 <style scoped>
 .banner {
-  position: relative;
   top: -35vh;
   left: -15%;
-  overflow: hidden;
   border-radius: 50%;
   width: 130%;
   height: 100vh;
-  background: #000;
-  background: linear-gradient(90deg, #97266d, #434190);
+  @apply overflow-hidden;
+  @apply relative;
+  @apply bg-gradient-to-r;
+  @apply from-pink-800;
+  @apply to-indigo-800;
 }
 
 .canvas {
-  position: absolute;
   top: 35vh;
   width: 100%;
   height: 65%;
+  @apply absolute;
 }
 </style>
