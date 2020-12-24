@@ -1,5 +1,5 @@
 <template>
-  <header class="w-full overflow-hidden banner">
+  <header class="overflow-hidden banner">
     <Particles :options="particlesOptions" id="particles" class="canvas" />
   </header>
 </template>
@@ -54,9 +54,10 @@ export default {
 
 <style scoped>
 .banner {
-  position: absolute;
+  position: relative;
   top: -35vh;
   left: -15%;
+  overflow: hidden;
   border-radius: 50%;
   width: 130%;
   height: 100vh;

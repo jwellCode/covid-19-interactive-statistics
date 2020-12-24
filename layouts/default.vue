@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="overflow-hidden">
+    <TheBanner/>
+    
     <Nuxt class="min-h-screen" />
-    <TheBanner />
+    
     <TheFooter />
   </div>
 </template>
