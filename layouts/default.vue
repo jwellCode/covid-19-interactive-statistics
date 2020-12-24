@@ -1,7 +1,7 @@
 <template>
   <div>
     <Nuxt class="min-h-screen" />
-
+    <TheBanner />
     <TheFooter />
   </div>
 </template>
