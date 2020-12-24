@@ -1,8 +1,6 @@
 <template>
-  <header
-    class="w-full bg-gradient-to-r from-pink-600 to-purple-600 overflow-hidden banner"
-  >
-    <Particles :options="particlesOptions" id="particles" />
+  <header class="w-full overflow-hidden banner">
+    <Particles :options="particlesOptions" id="particles" class="canvas" />
   </header>
 </template>
 
@@ -64,5 +62,12 @@ export default {
   height: 100vh;
   background: #000;
   background: linear-gradient(90deg, #97266d, #434190);
+}
+
+.canvas {
+  position: absolute;
+  top: 35vh;
+  width: 100%;
+  height: 65%;
 }
 </style>
