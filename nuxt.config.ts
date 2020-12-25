@@ -87,14 +87,8 @@ const config: NuxtConfig = {
    *   - https://pwa.nuxtjs.org/
    *   - https://axios.nuxtjs.org/
    *   - https://github.com/nuxt-community/robots-module/
-   *   - https://github.com/nuxt-community/sitemap-module/
    */
-  modules: [
-    "@nuxtjs/pwa",
-    "@nuxtjs/axios",
-    "@nuxtjs/robots",
-    "@nuxtjs/sitemap",
-  ],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/axios", "@nuxtjs/robots"],
 
   /*
    * PWA configuration
@@ -116,14 +110,6 @@ const config: NuxtConfig = {
       short_name: "COVID-19",
       description: "Entwicklung im Gange!",
     },
-  },
-
-  /*
-   * Sitemap configuration
-   * See: https://github.com/nuxt-community/sitemap-module/#configuration
-   */
-  sitemap: {
-    hostname: process.env.BASE_URL,
   },
 }
 
