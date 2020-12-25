@@ -1,3 +1,4 @@
+const { fontFamily } = require("tailwindcss/defaultTheme")
 const colors = require("tailwindcss/colors")
 
 /*
@@ -13,7 +14,12 @@ module.exports = {
    */
   theme: {
     // See: https://tailwindcss.com/docs/customizing-colors#color-palette-reference
-    colors,
+    extend: {
+      colors,
+      fontFamily: {
+        sans: ["Poppins", ...fontFamily.sans],
+      },
+    },
   },
 
   /*

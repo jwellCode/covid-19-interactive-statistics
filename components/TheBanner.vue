@@ -1,6 +1,20 @@
 <template>
   <header class="banner">
     <Particles :options="particlesOptions" id="particles" class="canvas" />
+
+    <div class="text text-center">
+      <h1 id="title" class="mb-4 text-white text-6xl font-bold">
+        COVID-19 Datastory
+      </h1>
+
+      <h2 id="subtitle" class="text-white text-3xl font-medium leading-normal">
+        Klimaeffekte auf die Ausbreitung des SARS-CoV-2 Virus
+      </h2>
+
+      <a class="bookmark text-coolGray-600 hover:bg-coolGray-200" href="#main"
+        >Erfahren Sie mehr</a
+      >
+    </div>
   </header>
 </template>
 
@@ -73,5 +87,34 @@ export default {
   top: 35vh;
   width: 100%;
   height: 65%;
+}
+
+.text {
+  @apply absolute;
+  top: 60vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bookmark {
+  @apply inline-block;
+  @apply text-lg;
+  @apply transition-colors;
+  @apply duration-150;
+  @apply bg-white;
+  @apply rounded-lg;
+  @apply mt-8;
+  @apply py-2;
+  @apply px-4;
+  @apply font-semibold;
+}
+
+@media only screen and (max-width: 700px) {
+  #title {
+    @apply text-4xl;
+  }
+  #subtitle {
+    @apply text-xl;
+  }
 }
 </style>
