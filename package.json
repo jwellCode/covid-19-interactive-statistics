@@ -10,13 +10,13 @@
     "generate": "nuxt-ts generate"
   },
   "dependencies": {
+    "@fontsource/poppins": "^4.0.1",
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/axios": "^5.12.4",
     "@nuxtjs/pwa": "^3.3.3",
     "@nuxtjs/robots": "^2.4.2",
     "d3": "^6.3.1",
     "focus-visible": "^5.2.0",
-    "fontsource-poppins": "^4.0.0",
     "nuxt": "^2.14.12",
     "particles.vue": "^2.1.11",
     "vue-observe-visibility": "^0.4.6"

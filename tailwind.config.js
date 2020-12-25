@@ -14,8 +14,8 @@ module.exports = {
    */
   theme: {
     // See: https://tailwindcss.com/docs/customizing-colors#color-palette-reference
-    colors,
     extend: {
+      colors,
       fontFamily: {
         sans: ["Poppins", ...fontFamily.sans],
       },
