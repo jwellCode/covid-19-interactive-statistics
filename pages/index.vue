@@ -1,14 +1,9 @@
 <template>
-  <main>
-  </main>
+  <main class="w-full max-w-screen-lg mx-auto px-4"></main>
 </template>
 
 <script>
-import Vue from "vue"
 import { getPageHead } from "~/utils"
-
-import Particles from "particles.vue"
-Vue.use(Particles)
 
 export default {
   head() {

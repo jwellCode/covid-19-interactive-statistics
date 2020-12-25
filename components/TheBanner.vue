@@ -7,8 +7,11 @@
 <script>
 import Vue from "vue"
 import Particles from "particles.vue"
+
 import virusSvg from "~/assets/svgs/virus.svg"
+
 Vue.use(Particles)
+
 export default {
   data() {
     return {
@@ -51,25 +54,24 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .banner {
-  top: -35vh;
-  left: -15%;
-  border-radius: 50%;
-  width: 130%;
-  height: 100vh;
-  @apply overflow-hidden;
   @apply relative;
   @apply bg-gradient-to-r;
   @apply from-pink-800;
   @apply to-indigo-800;
+  @apply overflow-hidden;
+  left: -15%;
+  top: -35vh;
+  width: 130%;
+  height: 100vh;
+  border-radius: 50%;
 }
 
 .canvas {
+  @apply absolute;
   top: 35vh;
   width: 100%;
   height: 65%;
-  @apply absolute;
 }
 </style>
