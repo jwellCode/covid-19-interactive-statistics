@@ -1,6 +1,12 @@
 <template>
   <header class="banner">
     <Particles :options="particlesOptions" id="particles" class="canvas" />
+
+    <div class="text text-center">
+      <h1 class="text-white text-6xl font-bold mb-4">COVID-19 Datastory</h1>
+      <h2 class="text-white text-3xl font-medium leading-normal">Klimaeffekte auf die Ausbreitung des SARS-CoV-2 Virus</h2>
+      <a href="#main">Erfahren Sie mehr</a>
+    </div>
   </header>
 </template>
 
@@ -73,5 +79,12 @@ export default {
   top: 35vh;
   width: 100%;
   height: 65%;
+}
+
+.text {
+  @apply absolute;
+  top: 60vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

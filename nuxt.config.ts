@@ -31,7 +31,7 @@ const config: NuxtConfig = {
    * CSS to add globally
    * See: https://nuxtjs.org/guides/configuration-glossary/configuration-css/
    */
-  css: [],
+  css: ["fontsource-poppins"],
 
   /*
    * Plugins to load before mounting the app
