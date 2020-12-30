@@ -11,8 +11,8 @@
         Klimaeffekte auf die Ausbreitung des SARS-CoV-2 Virus
       </h2>
 
-      <a class="bookmark text-coolGray-600 hover:bg-coolGray-200" href="#main"
-        >Erfahren Sie mehr</a
+      <a class="bookmark hover:bg-coolGray-200" href="#main"
+        ><div class="bookmarkText">Erfahren Sie mehr</div></a
       >
     </div>
   </header>
@@ -107,6 +107,12 @@ export default {
   @apply py-2;
   @apply px-4;
   @apply font-semibold;
+}
+
+.bookmarkText {
+  background: url("~@/assets/images/gradient.png") center;
+  background-clip: text;
+  color: transparent;
 }
 
 @media only screen and (max-width: 700px) {
