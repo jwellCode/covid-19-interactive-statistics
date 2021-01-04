@@ -1,5 +1,9 @@
 <template>
-  <main id="main" class="w-full max-w-screen-lg mx-auto px-4"></main>
+  <main id="main" class="w-full max-w-screen-lg mx-auto px-4">
+    <D3Linechart />    
+
+    <D3LinechartPlugin /> 
+  </main>
 </template>
 
 <script>
