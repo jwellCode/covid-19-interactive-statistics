@@ -37,16 +37,18 @@ export default {
                 {temp: 3.0, humidity: 85, date: new Date(2020, 11)},
             ],
             chart_config: {
-                margin: 50,
+                margin: 75,
                 width: 500, 
                 height: 500,
                 toppadding: 10,
                 colors: {
                     'temp': 'lightcoral',
                     'humidity': 'cornflowerblue'
-                }
+                },
+                startDate: '2020-01-01T00:00:00Z'
             },
-            weatherActive: 'humidity'
+            weatherActive: 'humidity',
+            cases: []
         }
     },
     methods: {
@@ -109,7 +111,13 @@ export default {
                 .text(label);
         }
     },
+    async fetch() {
+        const now = Date.now();
+        this.cases = await this.$axios.$get(`https://api.covid19api.com/country/germany?from=${this.startDate}&to=${now}`)
+    },
     mounted () {
+
+        var parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ"); //2020-02-02T00:00:00Z
 
         let svg = d3.select('svg#linechart')
             .attr('width', (this.chart_config.height + 2 * this.chart_config.margin))
@@ -117,17 +125,38 @@ export default {
 
         let xScale = d3.scaleTime()
             .range([0, this.chart_config.width])
-            .domain(d3.extent(this.data, d => d.date ));
+            .domain(d3.extent(this.cases, d => parseTime(d.Date) ));
+
+        let yScaleCases = d3.scaleLinear()
+            .range([this.chart_config.width, 0])
+            .domain([0, d3.max(this.cases, d => d['Confirmed']  + this.chart_config.toppadding)]);
         
         let xAxis = d3.axisBottom(xScale)
             .tickFormat(d3.timeFormat('%b'));
 
         // placeholder for cases axis
-        let yAxis = d3.axisLeft(xScale)
-            .ticks(0);
+        let yAxisCases = d3.axisLeft(yScaleCases)
+            .ticks(10);
 
         // Weather Graph and Axis
         this.toggle();
+
+        let lineCases = d3.line()
+            .x(d => xScale(parseTime(d.Date)))
+            .y(d => yScaleCases(d['Confirmed']))
+            .curve(d3.curveCatmullRom.alpha(1));
+
+        console.log(lineCases);
+
+        // Cases Graph
+        svg.append('path')
+            .datum(this.cases)
+            .attr('class', 'cases-line')
+            .attr('fill', 'none')
+            .attr('stroke', 'GoldenRod')
+            .attr('stroke-width', 3)            
+            .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`)
+            .attr('d', lineCases);
 
         // x Axis (Time)
         svg.append('g')
@@ -138,7 +167,16 @@ export default {
         svg.append('g')
             .attr('class', 'case-axis y-axis')
             .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`)
-            .call(yAxis);
+            .call(yAxisCases);
+
+        // Set y Axis Cases Label
+        svg.append('text')
+            .attr('x', this.chart_config.height )
+            .attr('y',  this.chart_config.margin / 4 )
+            .attr('class', 'cases-label')
+            .attr('transform-origin', 'center center')
+            .attr('transform', 'rotate(-90)')
+            .text('Fallzahlen');
     }
 }
 </script>
