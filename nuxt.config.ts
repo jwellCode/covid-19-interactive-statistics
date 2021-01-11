@@ -1,6 +1,8 @@
 import { NuxtConfig } from "@nuxt/types"
+
 import { fixUrl } from "./utils"
 
+// Reads environment variables.
 const { BASE_URL } = process.env
 
 const baseUrl = fixUrl(BASE_URL ?? "")
