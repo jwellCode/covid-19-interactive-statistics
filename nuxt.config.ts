@@ -1,4 +1,9 @@
 import { NuxtConfig } from "@nuxt/types"
+import { fixUrl } from "./utils"
+
+const { BASE_URL } = process.env
+
+const baseUrl = fixUrl(BASE_URL ?? "")
 
 const config: NuxtConfig = {
   /*
@@ -8,27 +13,27 @@ const config: NuxtConfig = {
   target: "static",
 
   /*
-   * Runtime configuration
+   * Public runtime configuration
    * See: https://nuxtjs.org/guides/configuration-glossary/configuration-runtime-config/
    */
   publicRuntimeConfig: {
-    baseUrl: process.env.BASE_URL,
+    baseUrl,
   },
 
   /*
-   * Headers of the page
+   * Page metadata
    * See: https://nuxtjs.org/guides/configuration-glossary/configuration-head/
    */
   head: {
-    titleTemplate: (title) =>
+    titleTemplate: (title: string | null) =>
       title
-        ? `${title} | COVID-19: Interaktive Statistiken`
+        ? `${title} • COVID-19: Interaktive Statistiken`
         : "COVID-19: Interaktive Statistiken",
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
   /*
-   * CSS to add globally
+   * Global CSS
    * See: https://nuxtjs.org/guides/configuration-glossary/configuration-css/
    */
   css: ["@fontsource/poppins/latin-ext.css"],
@@ -84,11 +89,11 @@ const config: NuxtConfig = {
   /*
    * Modules
    * See:
-   *   - https://pwa.nuxtjs.org/
    *   - https://axios.nuxtjs.org/
+   *   - https://pwa.nuxtjs.org/
    *   - https://github.com/nuxt-community/robots-module/
    */
-  modules: ["@nuxtjs/pwa", "@nuxtjs/axios", "@nuxtjs/robots"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/pwa", "@nuxtjs/robots"],
 
   /*
    * PWA configuration
@@ -100,7 +105,7 @@ const config: NuxtConfig = {
       description: "Entwicklung im Gange!",
       ogSiteName: "COVID-19: Interaktive Statistiken",
       ogTitle: "COVID-19: Interaktive Statistiken",
-      ogHost: process.env.BASE_URL,
+      ogHost: baseUrl,
       ogImage: "/image.png",
       twitterCard: "summary_large_image",
     },
