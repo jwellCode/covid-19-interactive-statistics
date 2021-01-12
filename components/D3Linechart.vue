@@ -1,5 +1,5 @@
 <template>
-    <div class="linechart-container">
+    <div class="linechart-container mb-5">
         <div class="linchart-headline">
             <h2 class="mx-auto">COVID-19 Fallzahlen Entwicklung</h2>        
             <form id="linechartCountrySelect" class="mx-auto">
