@@ -1,10 +1,21 @@
 <template>
     <div class="linechart-container">
+        <div class="linchart-headline">
+            <h2 class="mx-auto">COVID-19 Fallzahlen Entwicklung</h2>        
+            <form id="linechartCountrySelect" class="mx-auto">
+                <select name="countries" v-model="countrySelect" v-on:change="changeCountry()">
+                    <!-- <option value = "global" selected>Weltweit</option> -->
+                    <option value = "germany">Deutschland</option>
+                    <option value = "italy">Italien</option>
+                    <option value = "sweden">Schweden</option>
+                </select>
+            </form>          
+        </div>
         <div class="linechart-graph">
             <svg id="linechart" class="mx-auto"></svg>
         </div>
         <div class="linechart-settings"> 
-            <input v-on:input="toggle()" type="checkbox" id="ws" class="weather-switch" name="weather-switch"/>
+            <input v-on:input="weatherToggle()" type="checkbox" id="ws" class="weather-switch" name="weather-switch"/>
             <span class="toggle-label"> Luftfeuchtigkeit </span>
             <label for="ws" id="weather-toggle" class="toggle">
                 <span class="toggle-knop"></span>
@@ -45,31 +56,35 @@ export default {
                     'temp': 'lightcoral',
                     'humidity': 'cornflowerblue'
                 },
-                startDate: '2020-01-01T00:00:00Z'
-            },
-            weatherActive: 'humidity',
-            cases: []
+                startDate: '2020-01-01T00:00:00Z',
+                now: Date.now(),
+                weatherActive: 'humidity'
+            },            
+            cases: [],
+            countrySelect: 'germany'           
+        }
+    },
+    computed: {
+        linechartSvg:  function(){ 
+            return d3.select('svg#linechart');
         }
     },
     methods: {
-        toggle: function () {
-
-            let svg = d3.select('svg#linechart');
+        weatherToggle: function () {
 
             // Remove previous chart elements
             d3.select('path.weather-line').remove();
-            d3.select('g.weather-axis').remove();
             d3.select('g.weather-axis').remove();
             d3.select('text.weather-label').remove();
 
             let toggleLabel = document.getElementById('weather-toggle');
             toggleLabel.classList.contains('toggled') ? toggleLabel.classList.remove('toggled') : toggleLabel.classList.add('toggled');
 
-            this.weatherActive = this.weatherActive === 'temp' ? 'humidity' : 'temp';
+            this.chart_config.weatherActive = this.chart_config.weatherActive === 'temp' ? 'humidity' : 'temp';
 
             let yScale = d3.scaleLinear()
                 .range([this.chart_config.height, 0])
-                .domain([0, d3.max(this.data, d => d[this.weatherActive]  + this.chart_config.toppadding)]);
+                .domain([0, d3.max(this.data, d => d[this.chart_config.weatherActive]  + this.chart_config.toppadding)]);
 
             let xScale = d3.scaleTime()
                 .range([0, this.chart_config.width])
@@ -77,106 +92,139 @@ export default {
 
             let line = d3.line()
                 .x(d => xScale(d.date))
-                .y(d => yScale(d[this.weatherActive]))
+                .y(d => yScale(d[this.chart_config.weatherActive]))
                 .curve(d3.curveCatmullRom.alpha(0.5));
 
+            // y Axis for active weather condition
             let yAxis = d3.axisRight(yScale)
                 .ticks(10);
             
             // Set Graph
-            svg.append('path')
+            this.linechartSvg.append('path')
                 .datum(this.data)
-                .attr('class', `weather-line line-${this.weatherActive}`)
+                .attr('class', `weather-line line-${this.chart_config.weatherActive}`)
                 .attr('fill', 'none')
-                .attr('stroke', this.chart_config.colors[this.weatherActive])
+                .attr('stroke', this.chart_config.colors[this.chart_config.weatherActive])
                 .attr('stroke-width', 3)            
                 .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`)
                 .attr('d', line);
 
             // Set y Axis
-            svg.append('g')
+            this.linechartSvg.append('g')
                 .attr('class', 'weather-axis y-axis')
                 .attr('transform', `translate( ${this.chart_config.margin + this.chart_config.width}, ${this.chart_config.margin})`)
                 .call(yAxis);
 
-            let label = this.weatherActive === 'temp' ? 'Temperatur (°C)' : 'Luftfeuchtigkeit (%)';
+            let label = this.chart_config.weatherActive === 'temp' ? 'Temperatur (°C)' : 'Luftfeuchtigkeit (%)';
 
             // Set y Axis Label
-            svg.append('text')
+            this.linechartSvg.append('text')
                 .attr('x', this.chart_config.margin )
                 .attr('y',  this.chart_config.margin / 4 )
                 .attr('class', 'weather-label')
                 .attr('transform-origin', 'center center')
                 .attr('transform', 'rotate(90)')
                 .text(label);
+        },
+        countryToggle: function() {
+            var parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ");
+
+            // Remove previous chart elements
+            d3.select('path.cases-line').remove();
+            d3.select('g.cases-axis').remove();
+            d3.select('text.cases-label').remove();
+
+            let xScale = d3.scaleTime()
+                .range([0, this.chart_config.width])
+                .domain(d3.extent(this.cases, d => parseTime(d.Date) ));
+
+            let yScaleCases = d3.scaleLinear()
+                .range([this.chart_config.width, 0])
+                .domain([0, d3.max(this.cases, d => d['Confirmed']  + this.chart_config.toppadding)]);
+
+            // y Axis for Covid19 cases
+            let yAxisCases = d3.axisLeft(yScaleCases)
+                .ticks(10);
+
+            let lineCases = d3.line()
+                .x(d => xScale(parseTime(d.Date)))
+                .y(d => yScaleCases(d['Confirmed']))
+                .curve(d3.curveCatmullRom.alpha(1));
+
+            // Cases Graph
+            this.linechartSvg.append('path')
+                .datum(this.cases)
+                .attr('class', 'cases-line')
+                .attr('fill', 'none')
+                .attr('stroke', 'GoldenRod')
+                .attr('stroke-width', 3)            
+                .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`)
+                .attr('d', lineCases);
+
+            // yAxis cases
+            this.linechartSvg.append('g')
+                .attr('class', 'cases-axis y-axis')
+                .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`)
+                .call(yAxisCases);
+
+            // Set y Axis Cases Label
+            this.linechartSvg.append('text')
+                .attr('x', this.chart_config.height )
+                .attr('y',  this.chart_config.margin / 4 )
+                .attr('class', 'cases-label')
+                .attr('transform-origin', 'center center')
+                .attr('transform', 'rotate(-90)')
+                .text('Fallzahlen');
+        },
+        drawXAxis: function() {
+            var parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ");
+
+            let xScale = d3.scaleTime()
+                .range([0, this.chart_config.width])
+                .domain(d3.extent(this.cases, d => parseTime(d.Date) ));
+
+            let xAxis = d3.axisBottom(xScale)
+                .tickFormat(d3.timeFormat('%b'));
+
+            // x Axis (Time)
+            this.linechartSvg.append('g')
+                .attr('class', 'axis x-axis')
+                .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.height + this.chart_config.margin})`)
+                .call(xAxis);
+        },
+        changeCountry: function() {
+            this.cases = [];
+
+            this.$axios.$get(`https://api.covid19api.com/country/${this.countrySelect}?from=${this.startDate}&to=${this.chart_config.now}`)
+                .then( data => {
+                    // data for every 7 days                          
+                    for (let i = 0; i < data.length; i = i + 7) {
+                        this.cases.push(data[i]);
+                    }
+                    
+                    this.countryToggle();
+                });
         }
-    },
-    async fetch() {
-        const now = Date.now();
-        this.cases = await this.$axios.$get(`https://api.covid19api.com/country/germany?from=${this.startDate}&to=${now}`)
     },
     mounted () {
 
-        var parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ"); //2020-02-02T00:00:00Z
-
-        let svg = d3.select('svg#linechart')
+        this.linechartSvg
             .attr('width', (this.chart_config.height + 2 * this.chart_config.margin))
             .attr('height', (this.chart_config.height + 2 * this.chart_config.margin));
 
-        let xScale = d3.scaleTime()
-            .range([0, this.chart_config.width])
-            .domain(d3.extent(this.cases, d => parseTime(d.Date) ));
-
-        let yScaleCases = d3.scaleLinear()
-            .range([this.chart_config.width, 0])
-            .domain([0, d3.max(this.cases, d => d['Confirmed']  + this.chart_config.toppadding)]);
-        
-        let xAxis = d3.axisBottom(xScale)
-            .tickFormat(d3.timeFormat('%b'));
-
-        // placeholder for cases axis
-        let yAxisCases = d3.axisLeft(yScaleCases)
-            .ticks(10);
-
-        // Weather Graph and Axis
-        this.toggle();
-
-        let lineCases = d3.line()
-            .x(d => xScale(parseTime(d.Date)))
-            .y(d => yScaleCases(d['Confirmed']))
-            .curve(d3.curveCatmullRom.alpha(1));
-
-        console.log(lineCases);
-
-        // Cases Graph
-        svg.append('path')
-            .datum(this.cases)
-            .attr('class', 'cases-line')
-            .attr('fill', 'none')
-            .attr('stroke', 'GoldenRod')
-            .attr('stroke-width', 3)            
-            .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`)
-            .attr('d', lineCases);
-
-        // x Axis (Time)
-        svg.append('g')
-            .attr('class', 'axis x-axis')
-            .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.height + this.chart_config.margin})`)
-            .call(xAxis);
-
-        svg.append('g')
-            .attr('class', 'case-axis y-axis')
-            .attr('transform', `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`)
-            .call(yAxisCases);
-
-        // Set y Axis Cases Label
-        svg.append('text')
-            .attr('x', this.chart_config.height )
-            .attr('y',  this.chart_config.margin / 4 )
-            .attr('class', 'cases-label')
-            .attr('transform-origin', 'center center')
-            .attr('transform', 'rotate(-90)')
-            .text('Fallzahlen');
+        this.$axios.$get(`https://api.covid19api.com/country/${this.countrySelect}?from=${this.startDate}&to=${this.chart_config.now}`)
+                .then( data => {
+                    // data for every 7 days                          
+                    for (let i = 0; i < data.length; i = i + 7) {
+                        this.cases.push(data[i]);
+                    }
+                    // Weather Graph and Axis
+                    this.weatherToggle();   
+                    // Cases by Country
+                    this.countryToggle();
+                    // Time Axis
+                    this.drawXAxis();
+                });
     }
 }
 </script>
@@ -188,6 +236,31 @@ export default {
 
     input[type=checkbox] {
         @apply hidden;
+    }
+
+    .linchart-headline {
+        @apply flex;
+        @apply flex-col;
+        @apply items-center;
+        @apply place-self-center;
+        @apply divide-y-2;
+        @apply divide-solid;
+    }
+
+    .linchart-headline > h2 {
+        @apply pb-4;
+        @apply font-light;
+        @apply text-lg;
+    }
+
+    #linechartCountrySelect {
+        @apply pt-4;
+    }
+
+    #linechartCountrySelect > select {
+        @apply text-xl;
+        @apply font-semibold;
+        @apply text-center;
     }
 
     .linechart-settings {
