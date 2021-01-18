@@ -15,12 +15,12 @@
             <svg id="linechart" class="mx-auto"></svg>
         </div>
         <div class="linechart-settings"> 
-            <input v-on:input="weatherToggle()" type="checkbox" id="ws" class="weather-switch" name="weather-switch"/>
-            <span class="toggle-label"> Luftfeuchtigkeit </span>
-            <label for="ws" id="weather-toggle" class="toggle">
+            <input v-on:input="chart_config.weatherActive = chart_config.weatherActive === 'temp' ? 'relHumidity' : 'temp'; weatherToggle()" type="checkbox" id="ws" class="weather-switch" name="weather-switch"/>
+            <span class="toggle-label"> Temperatur </span>
+            <label for="ws" id="weather-toggle" v-bind:class="{ toggled: chart_config.weatherActive === 'relHumidity' }" class="toggle">
                 <span class="toggle-knop"></span>
             </label>
-            <span class="toggle-label"> Temperatur </span>
+            <span class="toggle-label"> Luftfeuchtigkeit </span>
         </div>
     </div>
 </template>
@@ -28,25 +28,11 @@
 <script>
 import * as d3 from 'd3';
 import { data } from 'autoprefixer';
+import historicalWeatherData from "~/data/historicWeatherData.csv";
 
 export default {
     data () {
         return {
-            data:
-            [
-                {temp: 3.3, humidity: 85, date: new Date(2020, 0)},
-                {temp: 5.3, humidity: 82, date: new Date(2020, 1)},
-                {temp: 5.3, humidity: 79, date: new Date(2020, 2)},
-                {temp: 10.5, humidity: 74, date: new Date(2020, 3)},
-                {temp: 11.9, humidity: 71, date: new Date(2020, 4)},
-                {temp: 16.8, humidity: 72, date: new Date(2020, 5)},
-                {temp: 17.7, humidity: 71, date: new Date(2020, 6)},
-                {temp: 19.9, humidity: 75, date: new Date(2020, 7)},
-                {temp: 14.8, humidity: 79, date: new Date(2020, 8)},
-                {temp: 10.2, humidity: 82, date: new Date(2020, 9)},
-                {temp: 6.0, humidity: 84, date: new Date(2020, 10)},
-                {temp: 3.0, humidity: 85, date: new Date(2020, 11)},
-            ],
             chart_config: {
                 margin: 75,
                 width: 500, 
@@ -54,19 +40,22 @@ export default {
                 toppadding: 10,
                 colors: {
                     'temp': 'lightcoral',
-                    'humidity': 'cornflowerblue'
+                    'relHumidity': 'cornflowerblue'
                 },
                 startDate: '2020-01-01T00:00:00Z',
-                now: Date.now(),
-                weatherActive: 'humidity'
+                now: '2021-01-01T00:00:00Z',
+                weatherActive: 'temp'
             },            
             cases: [],
-            countrySelect: 'germany'           
+            countrySelect: 'germany'         
         }
     },
     computed: {
         linechartSvg:  function(){ 
             return d3.select('svg#linechart');
+        },
+        weatherData: function() {
+            return d3.csvParse(historicalWeatherData, d3.autoType);  
         }
     },
     methods: {
@@ -77,21 +66,20 @@ export default {
             d3.select('g.weather-axis').remove();
             d3.select('text.weather-label').remove();
 
-            let toggleLabel = document.getElementById('weather-toggle');
-            toggleLabel.classList.contains('toggled') ? toggleLabel.classList.remove('toggled') : toggleLabel.classList.add('toggled');
+            let weatherDataParse = d3.timeParse('%b');
 
-            this.chart_config.weatherActive = this.chart_config.weatherActive === 'temp' ? 'humidity' : 'temp';
+            let currWeatherData = this.weatherData.filter( data => data.country === this.countrySelect);
 
             let yScale = d3.scaleLinear()
                 .range([this.chart_config.height, 0])
-                .domain([0, d3.max(this.data, d => d[this.chart_config.weatherActive]  + this.chart_config.toppadding)]);
+                .domain([0, d3.max(currWeatherData, d => d[this.chart_config.weatherActive]  + this.chart_config.toppadding)]);
 
             let xScale = d3.scaleTime()
                 .range([0, this.chart_config.width])
-                .domain(d3.extent(this.data, d => d.date ));
+                .domain(d3.extent(currWeatherData, d => weatherDataParse(d.Period) ));
 
             let line = d3.line()
-                .x(d => xScale(d.date))
+                .x(d => xScale(weatherDataParse(d.Period)))
                 .y(d => yScale(d[this.chart_config.weatherActive]))
                 .curve(d3.curveCatmullRom.alpha(0.5));
 
@@ -101,7 +89,7 @@ export default {
             
             // Set Graph
             this.linechartSvg.append('path')
-                .datum(this.data)
+                .datum(currWeatherData)
                 .attr('class', `weather-line line-${this.chart_config.weatherActive}`)
                 .attr('fill', 'none')
                 .attr('stroke', this.chart_config.colors[this.chart_config.weatherActive])
@@ -203,6 +191,7 @@ export default {
                     }
                     
                     this.countryToggle();
+                    this.weatherToggle();
                 });
         }
     },
@@ -277,7 +266,7 @@ export default {
         @apply w-20;
         @apply h-10;
         @apply mx-auto;
-        @apply bg-indigo-400;
+        @apply bg-red-500;
         @apply border-4;
         @apply rounded-full;
         @apply cursor-pointer;
@@ -300,7 +289,7 @@ export default {
     }
 
     .toggled {
-        @apply bg-red-500;
+        @apply bg-indigo-400;
     }
 
     .toggled > span.toggle-knop {
