@@ -11,9 +11,9 @@
         Klimaeffekte auf die Ausbreitung des SARS-CoV-2 Virus
       </h2>
 
-      <a class="bookmark hover:bg-coolGray-200" href="#main"
-        ><div class="bookmarkText">Erfahren Sie mehr</div></a
-      >
+      <a class="bookmark hover:bg-coolGray-200" href="#main">
+        <div class="bookmarkText">Erfahren Sie mehr</div>
+      </a>
     </div>
   </header>
 </template>
