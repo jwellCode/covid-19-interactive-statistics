@@ -20,7 +20,7 @@ const config: NuxtConfig = {
    * See: https://nuxtjs.org/guides/configuration-glossary/configuration-head/
    */
   head: {
-    titleTemplate: (title) =>
+    titleTemplate: (title: string | null) =>
       title
         ? `${title} | COVID-19: Interaktive Statistiken`
         : "COVID-19: Interaktive Statistiken",
@@ -60,17 +60,17 @@ const config: NuxtConfig = {
     "@nuxtjs/tailwindcss",
     "@aceforth/nuxt-optimized-images",
   ],
-  
+
   /*
-    * Build configuration
-    * See: https://nuxtjs.org/guides/configuration-glossary/configuration-build/
-    */
+   * Build configuration
+   * See: https://nuxtjs.org/guides/configuration-glossary/configuration-build/
+   */
   build: {
     extend(config) {
       config.module?.rules.push({
         test: /\.(csv|txt)$/i,
         loader: "raw-loader",
-      });
+      })
     },
 
     postcss: {

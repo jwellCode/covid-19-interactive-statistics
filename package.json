@@ -19,7 +19,6 @@
     "focus-visible": "^5.2.0",
     "nuxt": "^2.14.12",
     "particles.vue": "^2.1.11",
-    "vue-d3-charts": "^0.2.8",
     "vue-observe-visibility": "^0.4.6"
   },
   "devDependencies": {
