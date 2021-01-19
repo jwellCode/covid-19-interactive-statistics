@@ -73,6 +73,13 @@ const config: NuxtConfig = {
    * See: https://nuxtjs.org/guides/configuration-glossary/configuration-build/
    */
   build: {
+    extend(config) {
+      config.module?.rules.push({
+        test: /\.(csv|txt)$/i,
+        loader: "raw-loader",
+      })
+    },
+
     postcss: {
       plugins: {
         "postcss-focus-visible": {},
