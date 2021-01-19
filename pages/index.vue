@@ -3,6 +3,8 @@
     <Intro class="mb-24 md:mb-32" />
 
     <ExistingPaper class="mb-24 md:mb-32" />
+    
+    <LineChart class="mb-24 md:mb-32" />
   </main>
 </template>
 
