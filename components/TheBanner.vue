@@ -74,6 +74,7 @@ export default {
   @apply bg-gradient-to-r;
   @apply from-pink-800;
   @apply to-indigo-800;
+  @apply shadow-inner;
   @apply overflow-hidden;
   left: -15%;
   top: -35vh;

@@ -2,11 +2,12 @@
   <div>
     <h2
       id="subtitle"
-      class="text-black text-center text-3xl font-medium leading-normal mb-6"
+      class="mb-8 md:mb-12 font-medium text-center text-4xl md:text-5xl text-black"
     >
       Einleitung
     </h2>
-    <p class="text-black text-justify">
+
+    <p class="md:text-lg text-justify text-black">
       Die Corona-Krise stellt uns alle vor neue Herausforderungen, unter anderem
       weil das Virus noch nicht so weit erforscht wurde wie andere ähnliche
       Viren (wie z.B. das Grippe Virus). Aufgrund des globalen Ausmaßes
@@ -43,5 +44,4 @@
 export default {}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -2,11 +2,12 @@
   <div>
     <h2
       id="subtitle"
-      class="text-black text-center text-3xl font-medium leading-normal mb-6"
+      class="mb-8 md:mb-12 font-medium text-center text-4xl md:text-5xl text-black"
     >
       Existierende Paper
     </h2>
-    <p class="text-black text-justify">
+
+    <p class="md:text-lg text-justify text-black">
       Die Studie „Climate effect on COVID-19 spread rate: an online surveillance
       tool“ vom März 2020 untersuchte die Replikationsrate (RR) und
       Ausbreitungsrate (RoS) im Zusammenhang mit verschiedenen Klimaparametern.
@@ -97,5 +98,4 @@
 export default {}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
