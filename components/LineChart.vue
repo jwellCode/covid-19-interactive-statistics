@@ -11,10 +11,11 @@
         >
           <!-- <option value = "global" selected>Weltweit</option> -->
           <option value="germany">Deutschland</option>
-          <option value="venezuela">Venezuela</option>
-          <option value="sweden">Schweden</option>
+          <option value="venezuela">Venezuela</option>          
           <option value="mexico">Mexiko</option>
+          <option value="sweden">Schweden</option>
           <option value="estonia">Estland</option>
+          <option value="austria">Österreich</option>
         </select>
       </form>
     </div>
@@ -58,16 +59,16 @@ import historicalWeatherData from "~/data/historic-weather-data.csv"
 import covidCasesGermany from "~/data/corona-data-germany.json";
 import covidCasesEstonia from "~/data/corona-data-estonia.json";
 import covidCasesMexico from "~/data/corona-data-mexico.json";
-import covidCasesNetherlands from "~/data/corona-data-netherlands.json";
 import covidCasesSweden from "~/data/corona-data-sweden.json";
 import covidCasesVenezuela from "~/data/corona-data-venezuela.json";
+import covidCasesAustria from "~/data/corona-data-austria.json";
 
 export default {
   data() {
     return {
       chart_config: {
         margin: 75,
-        width: 500,
+        width: 750,
         height: 500,
         toppadding: 10,
         colors: {
@@ -81,9 +82,9 @@ export default {
         germany: covidCasesGermany, 
         estonia: covidCasesEstonia,
         mexico: covidCasesMexico,
-        netherlands: covidCasesNetherlands,
         sweden: covidCasesSweden,
         venezuela: covidCasesVenezuela,
+        austria: covidCasesAustria,
       },
     }
   },
@@ -127,13 +128,13 @@ export default {
 
   mounted() {
     this.linechartSvg
-      .attr("width", this.chart_config.height + 2 * this.chart_config.margin)
+      .attr("width", this.chart_config.width + 2 * this.chart_config.margin)
       .attr("height", this.chart_config.height + 2 * this.chart_config.margin)
 
-    // Weather Graph and Axis
-    this.weatherToggle()
     // Cases by Country
     this.countryToggle()
+    // Weather Graph and Axis
+    this.weatherToggle()
     // Time Axis
     this.drawXAxis()
   },
@@ -211,11 +212,9 @@ export default {
       // Set y Axis Label
       this.linechartSvg
         .append("text")
-        .attr("x", this.chart_config.margin)
-        .attr("y", this.chart_config.margin / 4)
+        .attr("x", this.chart_config.width + 20)
+        .attr("y", this.chart_config.margin - 20)
         .attr("class", "weather-label")
-        .attr("transform-origin", "center center")
-        .attr("transform", "rotate(90)")
         .text(label)
     },
 
@@ -230,7 +229,15 @@ export default {
       let currCaseData = [];
       // data for every 7 days
       for (let i = 0; i < this.cases[this.countrySelect].length; i = i + 7) {
-        currCaseData.push(this.cases[this.countrySelect][i])
+        if( this.cases[this.countrySelect][i].Province === '') {
+          if(i === 0) {
+            this.cases[this.countrySelect][i].Daily = 0
+            currCaseData.push(this.cases[this.countrySelect][i])
+          } else {
+            this.cases[this.countrySelect][i].Daily = this.cases[this.countrySelect][i].Confirmed - this.cases[this.countrySelect][i-1].Confirmed
+            currCaseData.push(this.cases[this.countrySelect][i])
+          }
+        }
       }
 
       const xScale = d3
@@ -240,12 +247,12 @@ export default {
 
       const yScaleCases = d3
         .scaleLinear()
-        .range([this.chart_config.width, 0])
+        .range([this.chart_config.height, 0])
         .domain([
           0,
           d3.max(
             currCaseData,
-            (d) => d["Confirmed"] + this.chart_config.toppadding
+            (d) => d["Daily"] + this.chart_config.toppadding
           ),
         ])
 
@@ -255,8 +262,8 @@ export default {
       const lineCases = d3
         .line()
         .x((d) => xScale(parseTime(d.Date)))
-        .y((d) => yScaleCases(d["Confirmed"]))
-        .curve(d3.curveCatmullRom.alpha(1))
+        .y((d) => yScaleCases(d["Daily"]))
+        .curve(d3.curveCatmullRom.alpha(0))
 
       // Cases Graph
       this.linechartSvg
@@ -285,11 +292,9 @@ export default {
       // Set y Axis Cases Label
       this.linechartSvg
         .append("text")
-        .attr("x", this.chart_config.height)
-        .attr("y", this.chart_config.margin / 4)
+        .attr("x", this.chart_config.margin / 2)
+        .attr("y", this.chart_config.margin - 20)
         .attr("class", "cases-label")
-        .attr("transform-origin", "center center")
-        .attr("transform", "rotate(-90)")
         .text("Fallzahlen")
     },
 
@@ -316,8 +321,7 @@ export default {
         .call(xAxis)
     },
 
-    changeCountry() {
-      
+    changeCountry() {      
           this.countryToggle()
           this.weatherToggle()
     },
