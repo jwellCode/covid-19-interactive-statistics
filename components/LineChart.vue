@@ -11,8 +11,10 @@
         >
           <!-- <option value = "global" selected>Weltweit</option> -->
           <option value="germany">Deutschland</option>
-          <option value="italy">Italien</option>
+          <option value="venezuela">Venezuela</option>
           <option value="sweden">Schweden</option>
+          <option value="mexico">Mexiko</option>
+          <option value="estonia">Estland</option>
         </select>
       </form>
     </div>
@@ -25,7 +27,7 @@
       <input
         v-on:input="
           chart_config.weatherActive =
-            chart_config.weatherActive === 'temp' ? 'relHumidity' : 'temp'
+            chart_config.weatherActive === 'maxTemp' ? 'relHumidity' : 'maxTemp'
           weatherToggle()
         "
         type="checkbox"
@@ -53,6 +55,12 @@
 <script>
 import * as d3 from "d3"
 import historicalWeatherData from "~/data/historic-weather-data.csv"
+import covidCasesGermany from "~/data/corona-data-germany.json";
+import covidCasesEstonia from "~/data/corona-data-estonia.json";
+import covidCasesMexico from "~/data/corona-data-mexico.json";
+import covidCasesNetherlands from "~/data/corona-data-netherlands.json";
+import covidCasesSweden from "~/data/corona-data-sweden.json";
+import covidCasesVenezuela from "~/data/corona-data-venezuela.json";
 
 export default {
   data() {
@@ -63,15 +71,20 @@ export default {
         height: 500,
         toppadding: 10,
         colors: {
-          temp: "lightcoral",
+          maxTemp: "lightcoral",
           relHumidity: "cornflowerblue",
         },
-        startDate: "2020-01-01T00:00:00Z",
-        now: "2021-01-01T00:00:00Z",
-        weatherActive: "temp",
+        weatherActive: "maxTemp",
       },
-      cases: [],
       countrySelect: "germany",
+      cases: {
+        germany: covidCasesGermany, 
+        estonia: covidCasesEstonia,
+        mexico: covidCasesMexico,
+        netherlands: covidCasesNetherlands,
+        sweden: covidCasesSweden,
+        venezuela: covidCasesVenezuela,
+      },
     }
   },
 
@@ -82,6 +95,34 @@ export default {
     weatherData() {
       return d3.csvParse(historicalWeatherData, d3.autoType)
     },
+    meanWeather() { 
+      let meanWeather = [
+        {date: 'Jan', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Feb', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Mar', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Apr', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'May', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Jun', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Jul', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Aug', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Sep', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Oct', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Nov', maxTemp: 0, relHumidity: 0, amount: 0},
+        {date: 'Dec', maxTemp: 0, relHumidity: 0, amount: 0},
+      ]
+      
+      this.weatherData.filter(
+        (data) => data.country === this.countrySelect
+      )
+      .forEach(
+        (data) => {       
+          meanWeather[parseInt(data.Period.substring(0,2))-1].maxTemp += data['maxTemp'];
+          meanWeather[parseInt(data.Period.substring(0,2))-1].relHumidity += data['relHumidity'];
+          meanWeather[parseInt(data.Period.substring(0,2))-1].amount += 1;
+        }
+      )
+      return meanWeather;
+    }
   },
 
   mounted() {
@@ -89,22 +130,12 @@ export default {
       .attr("width", this.chart_config.height + 2 * this.chart_config.margin)
       .attr("height", this.chart_config.height + 2 * this.chart_config.margin)
 
-    this.$axios
-      .$get(
-        `https://api.covid19api.com/country/${this.countrySelect}?from=${this.startDate}&to=${this.chart_config.now}`
-      )
-      .then((data) => {
-        // data for every 7 days
-        for (let i = 0; i < data.length; i = i + 7) {
-          this.cases.push(data[i])
-        }
-        // Weather Graph and Axis
-        this.weatherToggle()
-        // Cases by Country
-        this.countryToggle()
-        // Time Axis
-        this.drawXAxis()
-      })
+    // Weather Graph and Axis
+    this.weatherToggle()
+    // Cases by Country
+    this.countryToggle()
+    // Time Axis
+    this.drawXAxis()
   },
 
   methods: {
@@ -114,11 +145,8 @@ export default {
       d3.select("g.weather-axis").remove()
       d3.select("text.weather-label").remove()
 
+      //const weatherDataParse = d3.timeParse("%m/%d/%Y %H:%M:%S")
       const weatherDataParse = d3.timeParse("%b")
-
-      const currWeatherData = this.weatherData.filter(
-        (data) => data.country === this.countrySelect
-      )
 
       const yScale = d3
         .scaleLinear()
@@ -126,21 +154,21 @@ export default {
         .domain([
           0,
           d3.max(
-            currWeatherData,
+            this.meanWeather,
             (d) =>
-              d[this.chart_config.weatherActive] + this.chart_config.toppadding
+              (d[this.chart_config.weatherActive]/d['amount']) + this.chart_config.toppadding
           ),
         ])
 
       const xScale = d3
         .scaleTime()
         .range([0, this.chart_config.width])
-        .domain(d3.extent(currWeatherData, (d) => weatherDataParse(d.Period)))
+        .domain(d3.extent(this.meanWeather, (d) => weatherDataParse(d.date)))
 
       const line = d3
         .line()
-        .x((d) => xScale(weatherDataParse(d.Period)))
-        .y((d) => yScale(d[this.chart_config.weatherActive]))
+        .x((d) => xScale(weatherDataParse(d.date)))
+        .y((d) => yScale(d[this.chart_config.weatherActive]/d['amount']))
         .curve(d3.curveCatmullRom.alpha(0.5))
 
       // y Axis for active weather condition
@@ -149,7 +177,7 @@ export default {
       // Set Graph
       this.linechartSvg
         .append("path")
-        .datum(currWeatherData)
+        .datum(this.meanWeather)
         .attr("class", `weather-line line-${this.chart_config.weatherActive}`)
         .attr("fill", "none")
         .attr(
@@ -176,7 +204,7 @@ export default {
         .call(yAxis)
 
       const label =
-        this.chart_config.weatherActive === "temp"
+        this.chart_config.weatherActive === "maxTemp"
           ? "Temperatur (°C)"
           : "Luftfeuchtigkeit (%)"
 
@@ -199,10 +227,16 @@ export default {
       d3.select("g.cases-axis").remove()
       d3.select("text.cases-label").remove()
 
+      let currCaseData = [];
+      // data for every 7 days
+      for (let i = 0; i < this.cases[this.countrySelect].length; i = i + 7) {
+        currCaseData.push(this.cases[this.countrySelect][i])
+      }
+
       const xScale = d3
         .scaleTime()
         .range([0, this.chart_config.width])
-        .domain(d3.extent(this.cases, (d) => parseTime(d.Date)))
+        .domain(d3.extent(currCaseData, (d) => parseTime(d.Date)))
 
       const yScaleCases = d3
         .scaleLinear()
@@ -210,7 +244,7 @@ export default {
         .domain([
           0,
           d3.max(
-            this.cases,
+            currCaseData,
             (d) => d["Confirmed"] + this.chart_config.toppadding
           ),
         ])
@@ -227,7 +261,7 @@ export default {
       // Cases Graph
       this.linechartSvg
         .append("path")
-        .datum(this.cases)
+        .datum(currCaseData)
         .attr("class", "cases-line")
         .attr("fill", "none")
         .attr("stroke", "GoldenRod")
@@ -265,7 +299,7 @@ export default {
       const xScale = d3
         .scaleTime()
         .range([0, this.chart_config.width])
-        .domain(d3.extent(this.cases, (d) => parseTime(d.Date)))
+        .domain(d3.extent(this.cases[this.countrySelect], (d) => parseTime(d.Date)))
 
       const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b"))
 
@@ -283,21 +317,9 @@ export default {
     },
 
     changeCountry() {
-      this.cases = []
-
-      this.$axios
-        .$get(
-          `https://api.covid19api.com/country/${this.countrySelect}?from=${this.startDate}&to=${this.chart_config.now}`
-        )
-        .then((data) => {
-          // data for every 7 days
-          for (let i = 0; i < data.length; i = i + 7) {
-            this.cases.push(data[i])
-          }
-
+      
           this.countryToggle()
           this.weatherToggle()
-        })
     },
   },
 }
