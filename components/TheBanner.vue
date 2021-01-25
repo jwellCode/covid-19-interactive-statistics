@@ -79,20 +79,20 @@ export default {
   left: -15%;
   top: -35vh;
   width: 130%;
-  height: 100vh;
+  height: 120vh;
   border-radius: 50%;
 }
 
 .canvas {
   @apply absolute;
   top: 35vh;
-  width: 100%;
-  height: 65%;
+  width: 115%;
+  height: 75%;
 }
 
 .text {
   @apply absolute;
-  top: 60vh;
+  top: 70vh;
   left: 50%;
   transform: translate(-50%, -50%);
 }
