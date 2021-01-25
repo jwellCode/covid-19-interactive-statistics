@@ -74,6 +74,7 @@ export default {
         colors: {
           maxTemp: "lightcoral",
           relHumidity: "cornflowerblue",
+          cases: "GoldenRod",
         },
         weatherActive: "maxTemp",
       },
@@ -209,12 +210,21 @@ export default {
           ? "Temperatur (°C)"
           : "Luftfeuchtigkeit (%)"
 
+      this.linechartSvg
+        .append("rect")
+        .attr("x", this.chart_config.width - 25)
+        .attr("y", this.chart_config.margin - 30)
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill", this.chart_config.colors[this.chart_config.weatherActive])
+
       // Set y Axis Label
       this.linechartSvg
         .append("text")
-        .attr("x", this.chart_config.width + 20)
+        .attr("x", this.chart_config.width - 5)
         .attr("y", this.chart_config.margin - 20)
         .attr("class", "weather-label")
+        .style("fill", this.chart_config.colors[this.chart_config.weatherActive])
         .text(label)
     },
 
@@ -223,6 +233,7 @@ export default {
 
       // Remove previous chart elements
       d3.select("path.cases-line").remove()
+      d3.select("g.cases-dots").remove()
       d3.select("g.cases-axis").remove()
       d3.select("text.cases-label").remove()
 
@@ -262,7 +273,7 @@ export default {
       const lineCases = d3
         .line()
         .x((d) => xScale(parseTime(d.Date)))
-        .y((d) => yScaleCases(d["Daily"]))
+        .y((d) => yScaleCases(d.Daily))
         .curve(d3.curveCatmullRom.alpha(0))
 
       // Cases Graph
@@ -271,13 +282,31 @@ export default {
         .datum(currCaseData)
         .attr("class", "cases-line")
         .attr("fill", "none")
-        .attr("stroke", "GoldenRod")
+        .attr("stroke",  this.chart_config.colors["cases"])
         .attr("stroke-width", 3)
         .attr(
           "transform",
           `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
         )
         .attr("d", lineCases)
+
+      this.linechartSvg
+        .append("g")
+        .attr("class", "cases-dots")
+        .attr(
+          "transform",
+          `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
+        )
+        .selectAll("dot")
+        .data(currCaseData)
+        .enter()
+        .append("circle")
+          .attr("cx", (d) => xScale(parseTime(d.Date)) )
+          .attr("cy", (d) => yScaleCases(d.Daily) )
+          .attr("r", 3)
+          .attr("fill", this.chart_config.colors["cases"])
+          .attr("stroke", "white")
+          .attr("stroke-width", 2)
 
       // yAxis cases
       this.linechartSvg
@@ -289,12 +318,21 @@ export default {
         )
         .call(yAxisCases)
 
+      this.linechartSvg
+        .append("rect")
+        .attr("x", this.chart_config.margin / 2 - 20)
+        .attr("y", this.chart_config.margin - 30)
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill",  this.chart_config.colors["cases"])
+
       // Set y Axis Cases Label
       this.linechartSvg
         .append("text")
         .attr("x", this.chart_config.margin / 2)
         .attr("y", this.chart_config.margin - 20)
         .attr("class", "cases-label")
+        .style("fill",  this.chart_config.colors["cases"])
         .text("Fallzahlen")
     },
 
