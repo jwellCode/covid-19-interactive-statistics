@@ -38,7 +38,7 @@
       Verbreitungsrate auszuwirken und somit gab es bei höherer Luftfeuchte mehr
       infizierte Menschen. <br />
       Diese Studie verkörpert unseres Erachtens nach am deutlichsten den
-      Zusammenhang der Klimaparameter und der Ausbreitung von Covid-19. Dies
+      Zusammenhang der Klimaparameter und der Ausbreitung von COVID-19. Dies
       liegt unter anderem daran, dass für die Analyse die Klimadaten und die
       Fall- bzw. Todeszahlen (auch in einer visualisierten Statistik) in
       direktem Vergleich zueinanderstehen. Das Problem dabei ist allerdings,
@@ -71,7 +71,7 @@
       Hinweis darauf fanden, dass Veränderungen in der Temperatur auch eine
       Veränderung in den Ansteckungszahlen hervorbringen. Auch wenn sich
       abzuzeichnen scheint, dass warme Temperaturen wie im Sommer die
-      Verbreitung des Covid-19 Virus zu einem geringen Teil einzudämmen
+      Verbreitung des COVID-19 Virus zu einem geringen Teil einzudämmen
       scheinen. Ähnlich scheint es mit der Luftfeuchtigkeit zu sein, welche auch
       nicht eine eindeutige Korrelation zur Weitergabe des Virus zeigt, aber
       dennoch einen Trend zu einer negativen Korrelation vorweist. Die Forscher
