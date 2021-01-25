@@ -11,7 +11,7 @@
         >
           <!-- <option value = "global" selected>Weltweit</option> -->
           <option value="germany">Deutschland</option>
-          <option value="venezuela">Venezuela</option>          
+          <option value="venezuela">Venezuela</option>
           <option value="mexico">Mexiko</option>
           <option value="sweden">Schweden</option>
           <option value="estonia">Estland</option>
@@ -56,12 +56,12 @@
 <script>
 import * as d3 from "d3"
 import historicalWeatherData from "~/data/historic-weather-data.csv"
-import covidCasesGermany from "~/data/corona-data-germany.json";
-import covidCasesEstonia from "~/data/corona-data-estonia.json";
-import covidCasesMexico from "~/data/corona-data-mexico.json";
-import covidCasesSweden from "~/data/corona-data-sweden.json";
-import covidCasesVenezuela from "~/data/corona-data-venezuela.json";
-import covidCasesAustria from "~/data/corona-data-austria.json";
+import covidCasesGermany from "~/data/corona-data-germany.json"
+import covidCasesEstonia from "~/data/corona-data-estonia.json"
+import covidCasesMexico from "~/data/corona-data-mexico.json"
+import covidCasesSweden from "~/data/corona-data-sweden.json"
+import covidCasesVenezuela from "~/data/corona-data-venezuela.json"
+import covidCasesAustria from "~/data/corona-data-austria.json"
 
 export default {
   data() {
@@ -80,7 +80,7 @@ export default {
       },
       countrySelect: "germany",
       cases: {
-        germany: covidCasesGermany, 
+        germany: covidCasesGermany,
         estonia: covidCasesEstonia,
         mexico: covidCasesMexico,
         sweden: covidCasesSweden,
@@ -97,34 +97,33 @@ export default {
     weatherData() {
       return d3.csvParse(historicalWeatherData, d3.autoType)
     },
-    meanWeather() { 
+    meanWeather() {
       let meanWeather = [
-        {date: 'Jan', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Feb', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Mar', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Apr', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'May', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Jun', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Jul', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Aug', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Sep', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Oct', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Nov', maxTemp: 0, relHumidity: 0, amount: 0},
-        {date: 'Dec', maxTemp: 0, relHumidity: 0, amount: 0},
+        { date: "Jan", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Feb", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Mar", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Apr", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "May", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Jun", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Jul", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Aug", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Sep", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Oct", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Nov", maxTemp: 0, relHumidity: 0, amount: 0 },
+        { date: "Dec", maxTemp: 0, relHumidity: 0, amount: 0 },
       ]
-      
-      this.weatherData.filter(
-        (data) => data.country === this.countrySelect
-      )
-      .forEach(
-        (data) => {       
-          meanWeather[parseInt(data.Period.substring(0,2))-1].maxTemp += data['maxTemp'];
-          meanWeather[parseInt(data.Period.substring(0,2))-1].relHumidity += data['relHumidity'];
-          meanWeather[parseInt(data.Period.substring(0,2))-1].amount += 1;
-        }
-      )
-      return meanWeather;
-    }
+
+      this.weatherData
+        .filter((data) => data.country === this.countrySelect)
+        .forEach((data) => {
+          meanWeather[parseInt(data.Period.substring(0, 2)) - 1].maxTemp +=
+            data["maxTemp"]
+          meanWeather[parseInt(data.Period.substring(0, 2)) - 1].relHumidity +=
+            data["relHumidity"]
+          meanWeather[parseInt(data.Period.substring(0, 2)) - 1].amount += 1
+        })
+      return meanWeather
+    },
   },
 
   mounted() {
@@ -158,7 +157,8 @@ export default {
           d3.max(
             this.meanWeather,
             (d) =>
-              (d[this.chart_config.weatherActive]/d['amount']) + this.chart_config.toppadding
+              d[this.chart_config.weatherActive] / d["amount"] +
+              this.chart_config.toppadding
           ),
         ])
 
@@ -170,7 +170,7 @@ export default {
       const line = d3
         .line()
         .x((d) => xScale(weatherDataParse(d.date)))
-        .y((d) => yScale(d[this.chart_config.weatherActive]/d['amount']))
+        .y((d) => yScale(d[this.chart_config.weatherActive] / d["amount"]))
         .curve(d3.curveCatmullRom.alpha(0.5))
 
       // y Axis for active weather condition
@@ -216,7 +216,10 @@ export default {
         .attr("y", this.chart_config.margin - 30)
         .attr("width", 10)
         .attr("height", 10)
-        .style("fill", this.chart_config.colors[this.chart_config.weatherActive])
+        .style(
+          "fill",
+          this.chart_config.colors[this.chart_config.weatherActive]
+        )
 
       // Set y Axis Label
       this.linechartSvg
@@ -224,7 +227,10 @@ export default {
         .attr("x", this.chart_config.width - 5)
         .attr("y", this.chart_config.margin - 20)
         .attr("class", "weather-label")
-        .style("fill", this.chart_config.colors[this.chart_config.weatherActive])
+        .style(
+          "fill",
+          this.chart_config.colors[this.chart_config.weatherActive]
+        )
         .text(label)
     },
 
@@ -237,15 +243,17 @@ export default {
       d3.select("g.cases-axis").remove()
       d3.select("text.cases-label").remove()
 
-      let currCaseData = [];
+      let currCaseData = []
       // data for every 7 days
       for (let i = 0; i < this.cases[this.countrySelect].length; i = i + 7) {
-        if( this.cases[this.countrySelect][i].Province === '') {
-          if(i === 0) {
+        if (this.cases[this.countrySelect][i].Province === "") {
+          if (i === 0) {
             this.cases[this.countrySelect][i].Daily = 0
             currCaseData.push(this.cases[this.countrySelect][i])
           } else {
-            this.cases[this.countrySelect][i].Daily = this.cases[this.countrySelect][i].Confirmed - this.cases[this.countrySelect][i-1].Confirmed
+            this.cases[this.countrySelect][i].Daily =
+              this.cases[this.countrySelect][i].Confirmed -
+              this.cases[this.countrySelect][i - 1].Confirmed
             currCaseData.push(this.cases[this.countrySelect][i])
           }
         }
@@ -282,7 +290,7 @@ export default {
         .datum(currCaseData)
         .attr("class", "cases-line")
         .attr("fill", "none")
-        .attr("stroke",  this.chart_config.colors["cases"])
+        .attr("stroke", this.chart_config.colors["cases"])
         .attr("stroke-width", 3)
         .attr(
           "transform",
@@ -301,12 +309,12 @@ export default {
         .data(currCaseData)
         .enter()
         .append("circle")
-          .attr("cx", (d) => xScale(parseTime(d.Date)) )
-          .attr("cy", (d) => yScaleCases(d.Daily) )
-          .attr("r", 3)
-          .attr("fill", this.chart_config.colors["cases"])
-          .attr("stroke", "white")
-          .attr("stroke-width", 2)
+        .attr("cx", (d) => xScale(parseTime(d.Date)))
+        .attr("cy", (d) => yScaleCases(d.Daily))
+        .attr("r", 3)
+        .attr("fill", this.chart_config.colors["cases"])
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
 
       // yAxis cases
       this.linechartSvg
@@ -324,7 +332,7 @@ export default {
         .attr("y", this.chart_config.margin - 30)
         .attr("width", 10)
         .attr("height", 10)
-        .style("fill",  this.chart_config.colors["cases"])
+        .style("fill", this.chart_config.colors["cases"])
 
       // Set y Axis Cases Label
       this.linechartSvg
@@ -332,7 +340,7 @@ export default {
         .attr("x", this.chart_config.margin / 2)
         .attr("y", this.chart_config.margin - 20)
         .attr("class", "cases-label")
-        .style("fill",  this.chart_config.colors["cases"])
+        .style("fill", this.chart_config.colors["cases"])
         .text("Fallzahlen")
     },
 
@@ -342,7 +350,9 @@ export default {
       const xScale = d3
         .scaleTime()
         .range([0, this.chart_config.width])
-        .domain(d3.extent(this.cases[this.countrySelect], (d) => parseTime(d.Date)))
+        .domain(
+          d3.extent(this.cases[this.countrySelect], (d) => parseTime(d.Date))
+        )
 
       const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b"))
 
@@ -359,9 +369,9 @@ export default {
         .call(xAxis)
     },
 
-    changeCountry() {      
-          this.countryToggle()
-          this.weatherToggle()
+    changeCountry() {
+      this.countryToggle()
+      this.weatherToggle()
     },
   },
 }
