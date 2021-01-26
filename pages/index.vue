@@ -8,6 +8,11 @@
     <ExistingPaper class="mb-24 md:mb-32" />
 
     <LineChart class="mb-24 md:mb-32" />
+
+    <OurAnalysis class="mb-24 md:mb-32" />
+
+    <Summary class="mb-24 md:mb-32" />
+
     <Sources class="mb-24 md:mb-32" />
   </main>
 </template>

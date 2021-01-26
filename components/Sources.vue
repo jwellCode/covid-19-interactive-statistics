@@ -12,8 +12,8 @@
       href="https://www.medrxiv.org/content/10.1101/2020.03.26.20044727v1.full.pdf"
       target="_blank"
     >
-      Statistik 1: Climate effect on COVID-19 spread rate: an online
-      surveillance tool
+      Paper 1: Climate effect on COVID-19 spread rate: an online surveillance
+      tool
     </a>
 
     <a
@@ -21,7 +21,7 @@
       href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7280824/"
       target="_blank"
     >
-      Statistik 2: The effects of regional climatic condition on the spread of
+      Paper 2: The effects of regional climatic condition on the spread of
       COVID-19 at global scale
     </a>
 
@@ -30,8 +30,8 @@
       href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7280824/"
       target="_blank"
     >
-      Statistik 3: The effect of climate on the spread of the COVID-19 pandemic:
-      A review of findings, and statistical and modelling techniques
+      Paper 3: The effect of climate on the spread of the COVID-19 pandemic: A
+      review of findings, and statistical and modelling techniques
     </a>
 
     <a
