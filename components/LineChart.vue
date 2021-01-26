@@ -1,54 +1,67 @@
 <template>
-  <div class="linechart-container">
-    <div class="linchart-headline">
-      <h2 class="mx-auto">COVID-19 Fallzahlen Entwicklung</h2>
+  <div>
+    <h2
+      id="subtitle"
+      class="mb-8 md:mb-12 font-medium text-center text-4xl md:text-5xl text-black"
+    >
+      Landesinterne Untersuchung über Zeit
+    </h2>
 
-      <form id="linechartCountrySelect" class="mx-auto">
-        <select
-          v-model="countrySelect"
-          @change="changeCountry"
-          name="countries"
+    <div class="linechart-container">
+      <div class="linchart-headline">
+        <h2 class="mx-auto">COVID-19 Fallzahlen Entwicklung</h2>
+
+        <form id="linechartCountrySelect" class="mx-auto">
+          <select
+            v-model="countrySelect"
+            @change="changeCountry"
+            name="countries"
+          >
+            <!-- <option value = "global" selected>Weltweit</option> -->
+            <option value="germany">Deutschland</option>
+            <option value="venezuela">Venezuela</option>
+            <option value="mexico">Mexiko</option>
+            <option value="sweden">Schweden</option>
+            <option value="estonia">Estland</option>
+            <option value="austria">Österreich</option>
+          </select>
+        </form>
+      </div>
+
+      <div class="linechart-graph">
+        <svg id="linechart" class="mx-auto"></svg>
+      </div>
+
+      <div class="linechart-settings">
+        <input
+          v-on:input="
+            chart_config.weatherActive =
+              chart_config.weatherActive === 'maxTemp'
+                ? 'relHumidity'
+                : 'maxTemp'
+            weatherToggle()
+          "
+          type="checkbox"
+          id="ws"
+          class="weather-switch"
+          name="weather-switch"
+        />
+
+        <span class="toggle-label"> Temperatur </span>
+
+        <label
+          for="ws"
+          id="weather-toggle"
+          v-bind:class="{
+            toggled: chart_config.weatherActive === 'relHumidity',
+          }"
+          class="toggle"
         >
-          <!-- <option value = "global" selected>Weltweit</option> -->
-          <option value="germany">Deutschland</option>
-          <option value="venezuela">Venezuela</option>
-          <option value="mexico">Mexiko</option>
-          <option value="sweden">Schweden</option>
-          <option value="estonia">Estland</option>
-          <option value="austria">Österreich</option>
-        </select>
-      </form>
-    </div>
+          <span class="toggle-knop"></span>
+        </label>
 
-    <div class="linechart-graph">
-      <svg id="linechart" class="mx-auto"></svg>
-    </div>
-
-    <div class="linechart-settings">
-      <input
-        v-on:input="
-          chart_config.weatherActive =
-            chart_config.weatherActive === 'maxTemp' ? 'relHumidity' : 'maxTemp'
-          weatherToggle()
-        "
-        type="checkbox"
-        id="ws"
-        class="weather-switch"
-        name="weather-switch"
-      />
-
-      <span class="toggle-label"> Temperatur </span>
-
-      <label
-        for="ws"
-        id="weather-toggle"
-        v-bind:class="{ toggled: chart_config.weatherActive === 'relHumidity' }"
-        class="toggle"
-      >
-        <span class="toggle-knop"></span>
-      </label>
-
-      <span class="toggle-label"> Luftfeuchtigkeit </span>
+        <span class="toggle-label"> Luftfeuchtigkeit </span>
+      </div>
     </div>
   </div>
 </template>
@@ -207,7 +220,7 @@ export default {
 
       const label =
         this.chart_config.weatherActive === "maxTemp"
-          ? "Temperatur (°C)"
+          ? "Temperatur °C"
           : "Luftfeuchtigkeit (%)"
 
       this.linechartSvg
