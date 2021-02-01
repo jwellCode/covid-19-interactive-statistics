@@ -13,6 +13,8 @@
 
     <Summary class="mb-24 md:mb-32" />
 
+    <Hygiene class="mb-24 md:mb-32" />
+
     <Sources class="mb-24 md:mb-32" />
   </main>
 </template>
