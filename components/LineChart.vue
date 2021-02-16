@@ -9,7 +9,7 @@
 
     <div class="linechart-container">
       <div class="linchart-headline">
-        <h2 class="mx-auto">COVID-19 Fallzahlen Entwicklung</h2>
+        <h2 class="mx-auto text-center">COVID-19 Fallzahlen Entwicklung</h2>
 
         <form id="linechartCountrySelect" class="mx-auto">
           <select
@@ -29,7 +29,7 @@
       </div>
 
       <div class="linechart-graph">
-        <svg id="linechart" class="mx-auto"></svg>
+        <svg id="linechart" class="mx-auto" :viewBox="viewBox"></svg>
       </div>
 
       <div class="linechart-settings">
@@ -84,6 +84,7 @@ export default {
         width: 750,
         height: 500,
         toppadding: 10,
+        strokeWidth: 4,
         colors: {
           maxTemp: "lightcoral",
           relHumidity: "cornflowerblue",
@@ -137,12 +138,13 @@ export default {
         })
       return meanWeather
     },
+    viewBox() {
+      return `0 0 ${this.chart_config.width + this.chart_config.margin * 2} ${this.chart_config.height + this.chart_config.margin * 2}`
+    },
   },
 
   mounted() {
-    this.linechartSvg
-      .attr("width", this.chart_config.width + 2 * this.chart_config.margin)
-      .attr("height", this.chart_config.height + 2 * this.chart_config.margin)
+    window.addEventListener("resize", this.handleResize)
 
     // Cases by Country
     this.countryToggle()
@@ -158,6 +160,7 @@ export default {
       d3.select("path.weather-line").remove()
       d3.select("g.weather-axis").remove()
       d3.select("text.weather-label").remove()
+      d3.select("rect.weather-label-box").remove()
 
       //const weatherDataParse = d3.timeParse("%m/%d/%Y %H:%M:%S")
       const weatherDataParse = d3.timeParse("%b")
@@ -199,7 +202,7 @@ export default {
           "stroke",
           this.chart_config.colors[this.chart_config.weatherActive]
         )
-        .attr("stroke-width", 3)
+        .attr("stroke-width", this.chart_config.strokeWidth)
         .attr(
           "transform",
           `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
@@ -225,6 +228,7 @@ export default {
 
       this.linechartSvg
         .append("rect")
+        .attr("class", "weather-label-box")
         .attr("x", this.chart_config.width - 25)
         .attr("y", this.chart_config.margin - 30)
         .attr("width", 10)
@@ -240,6 +244,7 @@ export default {
         .attr("x", this.chart_config.width - 5)
         .attr("y", this.chart_config.margin - 20)
         .attr("class", "weather-label")
+        .attr("font-size", `${this.chart_config.labelSize}px`)
         .style(
           "fill",
           this.chart_config.colors[this.chart_config.weatherActive]
@@ -304,7 +309,7 @@ export default {
         .attr("class", "cases-line")
         .attr("fill", "none")
         .attr("stroke", this.chart_config.colors["cases"])
-        .attr("stroke-width", 3)
+        .attr("stroke-width", this.chart_config.strokeWidth)
         .attr(
           "transform",
           `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
@@ -353,12 +358,15 @@ export default {
         .attr("x", this.chart_config.margin / 2)
         .attr("y", this.chart_config.margin - 20)
         .attr("class", "cases-label")
+        .attr("font-size", `${this.chart_config.labelSize}px`)
         .style("fill", this.chart_config.colors["cases"])
         .text("Fallzahlen")
     },
 
     drawXAxis() {
       const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ")
+
+      d3.selectAll("g.linechart-x-axis").remove()
 
       const xScale = d3
         .scaleTime()
@@ -372,7 +380,7 @@ export default {
       // x Axis (Time)
       this.linechartSvg
         .append("g")
-        .attr("class", "axis x-axis")
+        .attr("class", "axis linechart-x-axis")
         .attr(
           "transform",
           `translate( ${this.chart_config.margin}, ${
@@ -386,6 +394,15 @@ export default {
       this.countryToggle()
       this.weatherToggle()
     },
+    handleResize() {
+      this.chart_config.labelSize = window.innerWidth <= 450 ? 25 : 20
+      this.weatherToggle()
+      this.countryToggle()
+      this.drawXAxis()
+    },
+  },
+  beforeDestroy: function () {
+    window.removeEventListener("resize", this.handleResize)
   },
 }
 </script>
@@ -426,17 +443,29 @@ input[type="checkbox"] {
 
 .linechart-settings {
   @apply min-w-full;
-  @apply px-64;
+  @apply mx-auto;
   @apply inline-flex;
   @apply justify-evenly;
   @apply items-center;
   @apply place-self-center;
 }
 
+.toggle-label {
+  @apply text-xs;
+  @apply xs:text-base;
+}
+
+#weather-toggle {
+  @apply mx-0;
+}
+
 .toggle {
+  @apply my-1;
   @apply block;
-  @apply w-20;
-  @apply h-10;
+  @apply w-16;
+  @apply xs:w-20;
+  @apply h-8;
+  @apply xs:h-10;
   @apply mx-auto;
   @apply bg-red-500;
   @apply border-4;
@@ -446,14 +475,18 @@ input[type="checkbox"] {
 
 .toggle-knop {
   @apply block;
-  @apply w-6;
-  @apply h-6;
+  @apply w-5;
+  @apply xs:w-6;
+  @apply h-5;
+  @apply xs:h-6;
   @apply bg-white;
   @apply rounded-full;
   @apply cursor-pointer;
   @apply relative;
-  @apply left-1;
-  @apply top-1;
+  @apply left-0.5;
+  @apply xs:left-1;
+  @apply top-0.5;
+  @apply xs:top-1;
 
   @apply transition-transform;
   @apply duration-150;
@@ -466,6 +499,7 @@ input[type="checkbox"] {
 
 .toggled > span.toggle-knop {
   @apply transform;
-  @apply translate-x-10;
+  @apply translate-x-6;
+  @apply xs:translate-x-10;
 }
 </style>
