@@ -21,7 +21,7 @@
     <OptimizedImage
       image="rate-of-spread.jpg"
       alt="COVID-19 rate of spread by country"
-      class="max-w-2xl mt-12 md:mt-16 mb-2 md:mb-4"
+      class="max-w-4xl mt-12 md:mt-16 mb-2 md:mb-4 mx-auto"
     />
 
     <small class="mb-12 md:mb-16 block">
@@ -51,7 +51,7 @@
     <OptimizedImage
       image="cases-per-population.jpg"
       alt="Total coronavirus cases in different countries of the world"
-      class="max-w-lg mt-12 md:mt-16 mb-2 md:mb-4"
+      class="max-w-xl mt-12 md:mt-16 mb-2 md:mb-4 mx-auto"
     />
 
     <small class="mb-12 md:mb-16 block">
@@ -73,7 +73,7 @@
     <OptimizedImage
       image="cases-per-population-temperature.jpg"
       alt="Total COVID-19 cases per million population and climatic factors"
-      class="max-w-lg mt-12 md:mt-16 mb-2 md:mb-4"
+      class="max-w-xl mt-12 md:mt-16 mb-2 md:mb-4 mx-auto"
     />
 
     <small class="mb-12 md:mb-16 block">
@@ -121,7 +121,7 @@
     <OptimizedImage
       image="associations-of-weather-conditions.jpg"
       alt="Associations of weather conditions in terms of humidity, precipitation, radiation, temperature, and wind speed with COVID-19 transmission"
-      class="max-w-2xl mt-12 md:mt-16 mb-2 md:mb-4"
+      class="max-w-xl mt-12 md:mt-16 mb-2 md:mb-4 mx-auto"
     />
 
     <small class="mb-12 md:mb-16 block">
