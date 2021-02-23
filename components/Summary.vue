@@ -8,24 +8,28 @@
     </h2>
 
     <p class="md:text-lg text-justify text-black">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-      voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-      clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-      diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-      sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-      diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-      erat, sed diam voluptua.<br />
-      At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-      gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis
-      autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-      consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et
-      accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
-      delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit
-      amet.
+      Alles in allem ist das Ergebnis der analysierten Studien und der Analyse
+      unserer eigenen Statistik einstimmig. Alle kamen zu der Erkenntnis, dass
+      es zwischen der Temperatur und den Neuinfektionen eine negative
+      Korrelation geben könnte. Die ersten Infektionswellen beginnen zwar fast
+      alle um den Anstieg des Wärmegrads, flachen oder sinken allerdings nahezu
+      vollständig mit dem Höchststand der Temperaturen im Sommer wieder ab.
+      Hierzu ist ebenfalls zu erwähnen, dass dieser Ausbruch unter anderem an
+      Faktoren liegen könnte, wie z.B. der Tatsache, dass zu Beginn des Jahres
+      2020 das Virus noch relativ neu war und keine Maßnahmen herrschten, um
+      dieses einzudämmen. Mit dem Eintritt vom Herbst um November herum beginnt
+      dann in vielen Ländern simultan mit dem Fall der Temperatur die zweite
+      Welle. Diese ist jedoch deutlich größer und hält bei den meisten auch
+      länger an. Zusätzlich gibt es Hinweise, dass die Luftfeuchtigkeit, vor
+      allem in Ländern wo die Temperatur das gesamte Jahr über relativ stetig
+      bleibt, einen Einfluss auf die Coronainfektionen haben könnte.<br /><br />
+      Um eine klare Korrelation zwischen Klimadaten und Infektionszahlen
+      festzustellen, erfordert es allerdings mehr Daten, indem z.B. der
+      Betrachtungszeitraum erweitert wird und mehr Länder analysiert werden. Wir
+      kommen also genau wie zuvor geführte Studien zu dieser Thematik zum
+      Ergebnis, dass es eine negative Korrelation zwischen Temperatur und Corona
+      Fallzahlen geben könnte, um diese jedoch zu beweisen, erfordert es mehr
+      Zeit und einen größeren Datensatz.
     </p>
   </div>
 </template>
