@@ -8,7 +8,7 @@
     </h2>
 
     <a
-      class="mb-4 md:text-lg text-left text-black block"
+      class="mb-4 md:text-lg text-left text-black block underline"
       href="https://www.medrxiv.org/content/10.1101/2020.03.26.20044727v1.full.pdf"
       target="_blank"
     >
@@ -17,7 +17,7 @@
     </a>
 
     <a
-      class="mb-4 md:text-lg text-left text-black block"
+      class="mb-4 md:text-lg text-left text-black block underline"
       href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7280824/"
       target="_blank"
     >
@@ -26,7 +26,7 @@
     </a>
 
     <a
-      class="mb-4 md:text-lg text-left text-black block"
+      class="mb-4 md:text-lg text-left text-black block underline"
       href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7280824/"
       target="_blank"
     >
@@ -35,7 +35,7 @@
     </a>
 
     <a
-      class="mb-4 md:text-lg text-left text-black block"
+      class="mb-4 md:text-lg text-left text-black block underline"
       href="https://www.visualcrossing.com/weather-data"
       target="_blank"
     >
@@ -43,7 +43,7 @@
     </a>
 
     <a
-      class="mb-4 md:text-lg text-left text-black block"
+      class="mb-4 md:text-lg text-left text-black block underline"
       href="https://documenter.getpostman.com/view/10808728/SzS8rjbc"
       target="_blank"
     >
@@ -51,9 +51,3 @@
     </a>
   </div>
 </template>
-
-<script>
-export default {}
-</script>
-
-<style scoped></style>
