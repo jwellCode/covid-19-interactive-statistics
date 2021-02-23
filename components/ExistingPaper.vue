@@ -25,9 +25,9 @@
     />
 
     <small class="mb-12 md:mb-16 block">
-      Abb. 1: COVID-19 rate of spread by country; A – “warm” countries, B-
-      “cold” countries, C- “warm” vs. “cold” boxplot, D- average rate of spread
-      on a world map
+      [Paper 1] COVID-19 Ausbreitungsrate nach Ländern; A – “warme” Länder, B-
+      “kalte” Länder, C- “warm” vs. “kalt” Box-Plot, D- Durchschnittliche
+      Ausbreitungsrate auf der Weltkarte
     </small>
 
     <p class="md:text-lg text-justify text-black">
@@ -55,9 +55,9 @@
     />
 
     <small class="mb-12 md:mb-16 block">
-      Abb. 2: Total coronavirus cases in different countries of the world (a)
-      Total confirmed cases per million population and (b) total death cases per
-      million population by COVID-19.
+      [Paper 2] Gesamtzahl der Coronavirus Fälle in verschiedenen Ländern der
+      Welt: (a) Gesamtzahl der bestätigten Fälle pro Millionen Einwohner und (b)
+      Gesamtzahl der Todesfälle pro Millionen Einwohner durch COVID-19.
     </small>
 
     <p class="md:text-lg text-justify text-black">
@@ -77,10 +77,12 @@
     />
 
     <small class="mb-12 md:mb-16 block">
-      Abb. 3: Total COVID-19 cases per million population and climatic factors,
-      (a) Total cases per million population and average high temperature, (b)
-      Total death cases per million population and average low temperature, and
-      (c) Total cases per million population and average daylight hours.
+      [Paper 2] Gesamtzahl der COVID-19 Fälle pro Millionen Einwohner und
+      Klimafaktoren, (a) Gesamtzahl der Fälle pro Millionen Einwohner und
+      durchschnittlicher Höchsttemperatur, (b) Gesamtzahl der Todesfälle pro
+      Millionen Einwohner und durchschnittlicher Tiefsttemperatur, und (c)
+      Gesamtzahl der Fälle pro Millionen Einwohner und durchschnittlichen
+      Tageslichtstunden
     </small>
 
     <p class="md:text-lg text-justify text-black">
@@ -125,11 +127,11 @@
     />
 
     <small class="mb-12 md:mb-16 block">
-      Abb. 4: Associations of weather conditions in terms of humidity,
-      precipitation, radiation, temperature, and wind speed with COVID-19
-      transmission: number of studies concluding different types of association
-      (negative, positive, no association, association dependent on the value,
-      unclear association and not analysed).
+      [Paper 3] Assoziierung der Wetterbedingungen Luftfeuchtigkeit,
+      Niederschlag, Strahlung, Temperatur und Windgeschwindigkeit mit der
+      Übertragung von COVID-19: Anzahl der Studien, welche verschiedene
+      Assoziierungen folgern (negativ, positiv, keine Assoziierung, Assoziierung
+      in Abhängigkeit der Werte, unklare Assoziierung und nicht analysiert)
     </small>
 
     <p class="md:text-lg text-justify text-black">
