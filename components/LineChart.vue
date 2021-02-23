@@ -181,7 +181,7 @@ export default {
         })
       return meanWeather
     },
-    
+
     caseData() {
       let currCaseData = []
       // data for every 7 days
@@ -220,7 +220,7 @@ export default {
           ),
         ])
     },
-  
+
     viewBox() {
       return `0 0 ${this.chart_config.width + this.chart_config.margin * 2} ${
         this.chart_config.height + this.chart_config.margin * 2
@@ -600,7 +600,6 @@ input.weather-switch {
   @apply flex;
   @apply flex-none;
   @apply items-center;
-
 }
 
 .toggle-label {
