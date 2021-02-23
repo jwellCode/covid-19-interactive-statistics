@@ -25,8 +25,9 @@
     />
 
     <small class="mb-12 md:mb-16 block">
-      [Paper 1] COVID-19 Ausbreitungsrate nach Ländern; A – “warm” countries, B-
-      “kalte” Länder, C- “warm” vs. “kalt” Boxplot, D- Durchschnittliche Ausbreitungsrate auf der Weltkarte
+      [Paper 1] COVID-19 Ausbreitungsrate nach Ländern; A – “warme” Länder, B-
+      “kalte” Länder, C- “warm” vs. “kalt” Box-Plot, D- Durchschnittliche
+      Ausbreitungsrate auf der Weltkarte
     </small>
 
     <p class="md:text-lg text-justify text-black">
@@ -54,9 +55,9 @@
     />
 
     <small class="mb-12 md:mb-16 block">
-      [Paper 2] Gesamte Coronavirus Fälle in verschiedenen Ländern der Welt: 
-      (a) Gesamte bestätigte Fälle pro millionen Einwohner und 
-      (b) gesamte Todesfälle pro millionen Einwohner durch COVID-19.
+      [Paper 2] Gesamtzahl der Coronavirus Fälle in verschiedenen Ländern der
+      Welt: (a) Gesamtzahl der bestätigten Fälle pro Millionen Einwohner und (b)
+      Gesamtzahl der Todesfälle pro Millionen Einwohner durch COVID-19.
     </small>
 
     <p class="md:text-lg text-justify text-black">
@@ -76,11 +77,12 @@
     />
 
     <small class="mb-12 md:mb-16 block">
-      [Paper 2]
-      Gesamte COVID-19 Fälle pro millionen Einwohner und Klimafaktoren,
-      (a) Gesamte Fälle pro millionen Einwohner und durchschnittlicher Höchsttemperatur, (b)
-      Gesamte Todesfälle pro millionen Einwohner und durchschnittlicher Niedrigtemperatur, und
-      (c) Gesamte Fäller pro millionen Einwohner und durchschnittlichen Sonnenstunden
+      [Paper 2] Gesamtzahl der COVID-19 Fälle pro Millionen Einwohner und
+      Klimafaktoren, (a) Gesamtzahl der Fälle pro Millionen Einwohner und
+      durchschnittlicher Höchsttemperatur, (b) Gesamtzahl der Todesfälle pro
+      Millionen Einwohner und durchschnittlicher Tiefsttemperatur, und (c)
+      Gesamtzahl der Fälle pro Millionen Einwohner und durchschnittlichen
+      Tageslichtstunden
     </small>
 
     <p class="md:text-lg text-justify text-black">
@@ -126,9 +128,10 @@
 
     <small class="mb-12 md:mb-16 block">
       [Paper 3] Assoziierung der Wetterbedingungen Luftfeuchtigkeit,
-      Niederschlag, Strahlung, Temperatur und Windgeschwindigkeit mit der Übertragung von COVID-19:
-      Anzahl der Studien, welche verschiedene Assoziierungen (negativ, positiv, keine Assoziierung, 
-      Assoziierung abhängig der Werte, unklare Assoziierung und nicht analysiert) folgern.
+      Niederschlag, Strahlung, Temperatur und Windgeschwindigkeit mit der
+      Übertragung von COVID-19: Anzahl der Studien, welche verschiedene
+      Assoziierungen folgern (negativ, positiv, keine Assoziierung, Assoziierung
+      in Abhängigkeit der Werte, unklare Assoziierung und nicht analysiert)
     </small>
 
     <p class="md:text-lg text-justify text-black">
