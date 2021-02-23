@@ -371,6 +371,7 @@ export default {
           .datum(currCaseData)
           .attr("id", `cases-line-${caseType}`)
           .attr("class", `cases-line ${hidden}`)
+          .attr("pointer-events", "visibleStroke")
           .attr("fill", this.chart_config.colors[caseType])
           .attr("stroke", this.chart_config.colors[caseType])
           .attr("stroke-width", 3)
@@ -400,6 +401,11 @@ export default {
           .attr("stroke", "white")
           .attr("stroke-width", 2)
           .attr("type", caseType)
+
+        d3.selectAll(".single-dot")
+          .on("mouseover", this.drawHoverTooltip)
+          .on("mouseleave", this.removeHoverTooltip)
+          .on("mousemove", this.moveHoverTooltip)
 
         // yAxis cases
         this.linechartSvg
@@ -482,6 +488,41 @@ export default {
         .call(xAxis)
     },
 
+    drawHoverTooltip(event, data) {
+      let circle = d3.select(event.target)
+      d3.select("#linechart-container")
+        .append("div")
+        .attr(
+          "style",
+          `position: absolute;
+          top:  ${event.pageY - 25}px; 
+          left:  ${event.pageX + 15}px; 
+          border: 1px solid DimGrey;
+          border-radius: 5px;
+          background-color: white;
+          min-width: 50px;
+          max-width: 150px;
+          padding: 2px 5px;
+          font-size: 0.8rem`
+        )
+        .attr("class", "hoverTooltip")
+        .text(
+          `${
+            this.chart_config.casetypeActive[circle.attr("type")].name.split(
+              " "
+            )[1]
+          }: ${data[circle.attr("type")]}`
+        )
+    },
+
+    removeHoverTooltip(event, data) {
+      d3.select(".hoverTooltip").remove()
+    },
+
+    moveHoverTooltip(event, data) {
+      this.removeHoverTooltip()
+      this.drawHoverTooltip(event, data)
+    },
   },
 }
 </script>
