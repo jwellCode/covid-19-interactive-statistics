@@ -15,12 +15,28 @@
       zwischen der Ausbreitung und der Erhöhung der Temperatur und des
       Taupunkts. Darüber hinaus wurde eine deutlich niedrigere RR und RoS in
       Ländern mit warmem Klima im Vergleich zu Ländern mit kaltem Klima
-      festgestellt. Den Einfluss der anderen untersuchten Klimaparametern auf
-      die Replikationsrate und die Ausbreitungsrate werteten die Forscher als
-      nicht signifikant. Da zum Zeitpunkt der Untersuchungen noch nicht viel
-      über das Virus bekannt war, endeten die Autoren des Papers mit dem
-      Hinweis, dass die Tendenzen über den weiteren Verlauf der Pandemie zu
-      überprüfen sind. <br />
+      festgestellt.
+    </p>
+
+    <OptimizedImage
+      image="rate-of-spread.jpg"
+      alt="COVID-19 rate of spread by country"
+      class="max-w-2xl mt-12 md:mt-16 mb-2 md:mb-4"
+    />
+
+    <small class="mb-12 md:mb-16 block">
+      Abb. 1: COVID-19 rate of spread by country; A – “warm” countries, B-
+      “cold” countries, C- “warm” vs. “cold” boxplot, D- average rate of spread
+      on a world map
+    </small>
+
+    <p class="md:text-lg text-justify text-black">
+      Den Einfluss der anderen untersuchten Klimaparametern auf die
+      Replikationsrate und die Ausbreitungsrate werteten die Forscher als nicht
+      signifikant. Da zum Zeitpunkt der Untersuchungen noch nicht viel über das
+      Virus bekannt war, endeten die Autoren des Papers mit dem Hinweis, dass
+      die Tendenzen über den weiteren Verlauf der Pandemie zu überprüfen sind.
+      <br />
       <br />
       In der Studie „The effects of regional climatic condition on the spread of
       COVID-19 at global scale“ vom 9. Juni 2020 untersuchten die
@@ -29,14 +45,45 @@
       Der Fokus lag hierbei auf den Fall- und Todeszahlen in verschiedenen
       Ländern weltweit vom ersten gemeldeten Fall bis zum 5. Juni 2020. Es
       wurden Vergleiche zu anderen Krankheiten ähnlicher Ansteckungsart und
-      ähnlichem Krankheitsbild gezogen. Die Wissenschaftler stellten fest, dass
-      die Ansteckungsrate sich ähnlich wie die der Grippe entwickelt. Somit
-      stiegen die Infektionszahlen unabhängig vom sozioökonomischen Status in
-      Ländern mit niedrigerer Durchschnittstemperatur schneller an als in
-      Ländern mit einer höheren durchschnittlichen Temperatur. Ebenso schien
-      sich im Analysezeitraum die Luftfeuchtigkeit negativ auf die
-      Verbreitungsrate auszuwirken und somit gab es bei höherer Luftfeuchte mehr
-      infizierte Menschen. <br />
+      ähnlichem Krankheitsbild gezogen.
+    </p>
+
+    <OptimizedImage
+      image="cases-per-population.jpg"
+      alt="Total coronavirus cases in different countries of the world"
+      class="max-w-lg mt-12 md:mt-16 mb-2 md:mb-4"
+    />
+
+    <small class="mb-12 md:mb-16 block">
+      Abb. 2: Total coronavirus cases in different countries of the world (a)
+      Total confirmed cases per million population and (b) total death cases per
+      million population by COVID-19.
+    </small>
+
+    <p class="md:text-lg text-justify text-black">
+      Die Wissenschaftler stellten fest, dass die Ansteckungsrate sich ähnlich
+      wie die der Grippe entwickelt. Somit stiegen die Infektionszahlen
+      unabhängig vom sozioökonomischen Status in Ländern mit niedrigerer
+      Durchschnittstemperatur schneller an als in Ländern mit einer höheren
+      durchschnittlichen Temperatur. Ebenso schien sich im Analysezeitraum die
+      Luftfeuchtigkeit negativ auf die Verbreitungsrate auszuwirken und somit
+      gab es bei höherer Luftfeuchte mehr infizierte Menschen.
+    </p>
+
+    <OptimizedImage
+      image="cases-per-population-temperature.jpg"
+      alt="Total COVID-19 cases per million population and climatic factors"
+      class="max-w-lg mt-12 md:mt-16 mb-2 md:mb-4"
+    />
+
+    <small class="mb-12 md:mb-16 block">
+      Abb. 3: Total COVID-19 cases per million population and climatic factors,
+      (a) Total cases per million population and average high temperature, (b)
+      Total death cases per million population and average low temperature, and
+      (c) Total cases per million population and average daylight hours.
+    </small>
+
+    <p class="md:text-lg text-justify text-black">
       Diese Studie verkörpert unseres Erachtens nach am deutlichsten den
       Zusammenhang der Klimaparameter und der Ausbreitung von COVID-19. Dies
       liegt unter anderem daran, dass für die Analyse die Klimadaten und die
@@ -54,11 +101,13 @@
       Bevölkerungsdichte, mittel- und westeuropäische Länder eine höhere
       Ansteckungs- und Todesrate haben, als unterentwickelte Länder, wie
       Pakistan oder Indien, aufgrund der höheren Temperaturen im Zeitraum von
-      März bis Juni. <br />
+      März bis Juni.
+      <br />
       Als Fazit führen die Wissenschaftler an, dass meteorologische Parameter,
       wie Temperatur, Tageslänge und Luftfeuchtigkeit einen Einfluss auf die
       Ausbreitung des Coronavirus haben, aber nicht die einzigen Faktoren
-      hierfür sind. <br />
+      hierfür sind.
+      <br />
       <br />
       Im Paper „The effect of climate on the spread of the COVID-19 pandemic: A
       review of findings, and statistical and modelling techniques“ vom August
@@ -66,10 +115,27 @@
       mit den meteorologischen Daten in verschiedenen Ländern betrieben, sondern
       eine Untersuchung veröffentlichter Studien zu diesem Thema unternommen.
       Diese ergab, dass von 61 untersuchten Studien 33 eine negative Korrelation
-      zwischen Temperatur und Ansteckungsrate in Betracht ziehen. Hierzu
-      schreiben die Wissenschaftler aber auch, dass alle Studien keinen klaren
-      Hinweis darauf fanden, dass Veränderungen in der Temperatur auch eine
-      Veränderung in den Ansteckungszahlen hervorbringen. Auch wenn sich
+      zwischen Temperatur und Ansteckungsrate in Betracht ziehen.
+    </p>
+
+    <OptimizedImage
+      image="associations-of-weather-conditions.jpg"
+      alt="Associations of weather conditions in terms of humidity, precipitation, radiation, temperature, and wind speed with COVID-19 transmission"
+      class="max-w-2xl mt-12 md:mt-16 mb-2 md:mb-4"
+    />
+
+    <small class="mb-12 md:mb-16 block">
+      Abb. 4: Associations of weather conditions in terms of humidity,
+      precipitation, radiation, temperature, and wind speed with COVID-19
+      transmission: number of studies concluding different types of association
+      (negative, positive, no association, association dependent on the value,
+      unclear association and not analysed).
+    </small>
+
+    <p class="md:text-lg text-justify text-black">
+      Hierzu schreiben die Wissenschaftler aber auch, dass alle Studien keinen
+      klaren Hinweis darauf fanden, dass Veränderungen in der Temperatur auch
+      eine Veränderung in den Ansteckungszahlen hervorbringen. Auch wenn sich
       abzuzeichnen scheint, dass warme Temperaturen wie im Sommer die
       Verbreitung des COVID-19 Virus zu einem geringen Teil einzudämmen
       scheinen. Ähnlich scheint es mit der Luftfeuchtigkeit zu sein, welche auch
@@ -79,7 +145,8 @@
       Temperatur oder Luftfeuchtigkeit höchstens eine kleine Rolle spielen und
       als Tendenz wahrgenommen werden können und nicht als Hauptfaktor für die
       Ausbreitung des Virus in Frage kommen, sollten diese überhaupt einen
-      Einfluss bei der globalen Ausbreitung gehabt haben. <br />
+      Einfluss bei der globalen Ausbreitung gehabt haben.
+      <br />
       <br />
       Zwar haben alle drei Studien betont, dass keine klare Korrelation zwischen
       Temperatur und der Ansteckungsrate des Virus bewiesen werden kann, jedoch

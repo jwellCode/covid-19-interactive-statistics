@@ -36,6 +36,7 @@ The following scripts are currently available:
 | `generate` | Generates the app statically for production (Requires a `npm run build` step first). |
 
 ## The Webapp is available under the following URL
+
 https://covid-19-interactive-statistics.vercel.app/
 
 ## License

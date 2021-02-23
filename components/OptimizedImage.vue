@@ -19,11 +19,11 @@
       v-if="isVisible"
       :class="['absolute inset-0', isLoaded ? 'fade-in' : 'invisible']"
     >
-      <source
+      <!-- <source
         :srcset="require(`~/assets/images/${image}?webp`)"
         :alt="alt"
         class="w-full h-full object-cover object-center text-transparent"
-      />
+      /> -->
 
       <source
         :srcset="require(`~/assets/images/${image}`)"
