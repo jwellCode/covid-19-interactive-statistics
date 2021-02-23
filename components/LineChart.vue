@@ -139,7 +139,9 @@ export default {
       return meanWeather
     },
     viewBox() {
-      return `0 0 ${this.chart_config.width + this.chart_config.margin * 2} ${this.chart_config.height + this.chart_config.margin * 2}`
+      return `0 0 ${this.chart_config.width + this.chart_config.margin * 2} ${
+        this.chart_config.height + this.chart_config.margin * 2
+      }`
     },
   },
 
