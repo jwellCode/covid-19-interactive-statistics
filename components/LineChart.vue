@@ -551,7 +551,7 @@ export default {
 
     setResponsiveSizes() {
       this.chart_config.labelSize = window.innerWidth <= 550 ? 10 : 15
-      this.chart_config.strokeWidth = window.innerWidth <= 550 ? 2 : 4
+      this.chart_config.strokeWidth = window.innerWidth <= 550 ? 1.5 : 4
       this.chart_config.timeTicks = window.innerWidth <= 550 ? 4 : 12
       this.chart_config.weatherLabelDistance = window.innerWidth <= 550 ? 80 : 125
 
