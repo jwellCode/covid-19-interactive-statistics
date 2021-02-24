@@ -617,7 +617,7 @@ input.weather-switch {
   @apply mx-3;
   width: 3.75rem;
   @apply xs:w-20;
-  height: 1.95rem;
+  @apply h-8;
   @apply xs:h-10;
   @apply mx-auto;
   @apply bg-red-500;
