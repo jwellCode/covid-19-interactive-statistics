@@ -1,4 +1,4 @@
-# COVID-19 Interactive Statistics
+# COVID-19 Datastory
 
 ## Prerequisites
 
@@ -37,7 +37,7 @@ The following scripts are currently available:
 
 ## The Webapp is available under the following URL
 
-https://covid-19-interactive-statistics.vercel.app/
+https://covid-19-datastory.vercel.app/
 
 ## License
 

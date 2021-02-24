@@ -4,7 +4,7 @@
       id="subtitle"
       class="mb-8 md:mb-12 font-medium text-center text-4xl md:text-5xl text-black"
     >
-      Zusammenfassung
+      Zusammen<span class="hyphen">-</span>fassung
     </h2>
 
     <p class="md:text-lg text-justify text-black">
@@ -33,3 +33,11 @@
     </p>
   </div>
 </template>
+
+<style scoped>
+@media (min-width: 400px) {
+  .hyphen {
+    display: none;
+  }
+}
+</style>
