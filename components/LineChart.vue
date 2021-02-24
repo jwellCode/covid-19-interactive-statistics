@@ -116,7 +116,6 @@ export default {
         strokeWidth: 4,
         labelSize: 15,
         timeTicks: 12,
-        renderDots: true,
         weatherLabelDistance: 100,
         colors: {
           maxTemp: "lightcoral",
@@ -394,52 +393,49 @@ export default {
           .attr("pointer-events", "visibleStroke")
           .attr("fill", this.chart_config.colors[caseType])
           .attr("stroke", this.chart_config.colors[caseType])
-          .attr("stroke-width", 3)
+          .attr("stroke-width", this.chart_config.strokeWidth)
+          .attr("stroke-location", "inside")
           .attr(
             "transform",
             `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
           )
           .attr("d", lineCases)
-          
-        if(this.chart_config.renderDots) {
-          this.linechartSvg
-            .append("g")
-            .attr("id", `cases-dots-${caseType}`)
-            .attr("class", `cases-dots ${hidden}`)
-            .attr(
-              "transform",
-              `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
-            )
-            .selectAll("dot")
-            .data(currCaseData)
-            .enter()
-            .append("circle")
-            .attr("class", "single-dot")
-            .attr("cx", (d) => xScale(parseTime(d.Date)))
-            .attr("cy", (d) => yScaleCases(d[caseType]))
-            .attr("r", 3)
-            .attr("fill", this.chart_config.colors[caseType])
-            .attr("stroke", "white")
-            .attr("stroke-width", 2)
-            .attr("type", caseType)
-
-          d3.selectAll(".single-dot")
-            .on("mouseover", this.drawHoverTooltip)
-            .on("mouseleave", this.removeHoverTooltip)
-            .on("mousemove", this.moveHoverTooltip)
-        }
-
-        // yAxis cases
+        
         this.linechartSvg
           .append("g")
-          .attr("class", "cases-axis y-axis")
+          .attr("id", `cases-dots-${caseType}`)
+          .attr("class", `cases-dots ${hidden}`)
           .attr(
             "transform",
             `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
           )
-          .call(yAxisCases)
+          .selectAll("dot")
+          .data(currCaseData)
+          .enter()
+          .append("circle")
+          .attr("class", "single-dot")
+          .attr("cx", (d) => xScale(parseTime(d.Date)))
+          .attr("cy", (d) => yScaleCases(d[caseType]))
+          .attr("r", this.chart_config.strokeWidth)
+          .attr("fill", this.chart_config.colors[caseType])
+          .attr("type", caseType)
+
+        d3.selectAll(".single-dot")
+          .on("mouseover", this.drawHoverTooltip)
+          .on("mouseleave", this.removeHoverTooltip)
+          .on("mousemove", this.moveHoverTooltip)
       }
 
+      // yAxis cases
+      this.linechartSvg
+        .append("g")
+        .attr("class", "cases-axis y-axis")
+        .attr(
+          "transform",
+          `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
+        )
+        .call(yAxisCases)
+      
       this.linechartSvg
         .append("rect")
         .attr("x", this.chart_config.margin / 2 - 20)
@@ -558,8 +554,6 @@ export default {
       this.chart_config.strokeWidth = window.innerWidth <= 550 ? 2 : 4
       this.chart_config.timeTicks = window.innerWidth <= 550 ? 4 : 12
       this.chart_config.weatherLabelDistance = window.innerWidth <= 550 ? 80 : 125
-
-      this.chart_config.renderDots = window.innerWidth > 750 
 
       this.chart_config.margin = window.innerWidth <= 750 ? 50 : this.chart_config.maxMargin
       this.chart_config.width = window.innerWidth <= 450 ? window.innerWidth  : this.linechartContainer.style('width').slice(0, -2) - this.chart_config.margin * 2      
