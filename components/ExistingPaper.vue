@@ -152,8 +152,8 @@
       <br />
       Zwar haben alle drei Studien betont, dass keine klare Korrelation zwischen
       Temperatur und der Ansteckungsrate des Virus bewiesen werden kann, jedoch
-      weisen die Funde der Paper alle auf eine negative Korrelation hin. Auf
-      Grund der Tatsache, dass zur Zeit dieser Datastory nun fast ein Jahr
+      weisen die Funde der Paper alle auf eine negative Korrelation hin.
+      Aufgrund der Tatsache, dass zur Zeit dieser Datastory nun fast ein Jahr
       vergangen ist seit dem die Pandemie herrscht, wird im weiteren Verlaufe
       dieser Arbeit dort angesetzt wo die Studie vom Juli endete und anstatt
       einen internationalen Vergleich mit Durchschnittsdaten, eine Untersuchung
