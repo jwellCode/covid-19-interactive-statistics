@@ -615,9 +615,9 @@ input.weather-switch {
   @apply my-1;
   @apply block;
   @apply mx-3;
-  @apply w-16;
+  width: 3.75rem;
   @apply xs:w-20;
-  @apply h-8;
+  height: 1.95rem;
   @apply xs:h-10;
   @apply mx-auto;
   @apply bg-red-500;
@@ -636,7 +636,7 @@ input.weather-switch {
   @apply rounded-full;
   @apply cursor-pointer;
   @apply relative;
-  @apply left-0.5;
+  @apply left-1;
   @apply xs:left-1;
   @apply top-0.5;
   @apply xs:top-1;
