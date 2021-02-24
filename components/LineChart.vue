@@ -29,7 +29,7 @@
       </div>
 
       <div id="linechart-container" class="linechart-graph">
-        <svg id="linechart" class="mx-auto" :viewBox="viewBox"></svg>
+        <svg id="linechart" class="mx-auto" :width="chart_config.width" :height="chart_config.height + chart_config.margin * 2"></svg>
       </div>
 
       <div class="linechart-settings">
@@ -107,10 +107,17 @@ export default {
     return {
       chart_config: {
         margin: 75,
+        maxMargin: 75,
         width: 750,
+        maxWidth: 750, 
         height: 500,
+        maxHeight: 500,
         toppadding: 10,
         strokeWidth: 4,
+        labelSize: 15,
+        timeTicks: 12,
+        renderDots: true,
+        weatherLabelDistance: 100,
         colors: {
           maxTemp: "lightcoral",
           relHumidity: "cornflowerblue",
@@ -150,6 +157,9 @@ export default {
   computed: {
     linechartSvg() {
       return d3.select("svg#linechart")
+    },
+    linechartContainer() {
+      return d3.select("div#linechart-container")
     },
     weatherData() {
       return d3.csvParse(historicalWeatherData, d3.autoType)
@@ -230,7 +240,7 @@ export default {
 
   mounted() {
     window.addEventListener("resize", this.handleResize)
-
+    this.setResponsiveSizes()
     // Cases by Country
     this.drawCaseGraph()
     // Weather Graph and Axis
@@ -258,7 +268,7 @@ export default {
 
       const xScale = d3
         .scaleTime()
-        .range([0, this.chart_config.width])
+        .range([0, this.chart_config.width - this.chart_config.margin * 2])
         .domain(d3.extent(this.meanWeather, (d) => weatherDataParse(d.date)))
 
       const line = d3
@@ -293,7 +303,7 @@ export default {
         .attr("class", "weather-axis y-axis")
         .attr(
           "transform",
-          `translate( ${this.chart_config.margin + this.chart_config.width}, ${
+          `translate( ${this.chart_config.width - this.chart_config.margin}, ${
             this.chart_config.margin
           })`
         )
@@ -307,7 +317,8 @@ export default {
       this.linechartSvg
         .append("rect")
         .attr("class", "weather-label-box")
-        .attr("x", this.chart_config.width - 25)
+        .attr("transform-origin", "center, right")
+        .attr("x", this.chart_config.width - this.chart_config.margin)
         .attr("y", this.chart_config.margin - 30)
         .attr("width", 10)
         .attr("height", 10)
@@ -318,8 +329,9 @@ export default {
 
       // Set y Axis Label
       this.linechartSvg
-        .append("text")
-        .attr("x", this.chart_config.width - 5)
+        .append("text")        
+        .attr("transform-origin", "center, right")
+        .attr("x", this.chart_config.width - this.chart_config.margin - this.chart_config.weatherLabelDistance)
         .attr("y", this.chart_config.margin - 20)
         .attr("class", "weather-label")
         .attr("font-size", `${this.chart_config.labelSize}px`)
@@ -334,7 +346,8 @@ export default {
       // Remove previous chart elements
       d3.select("path.weather-line").remove()
       d3.select("g.weather-axis").remove()
-      d3.select("text.weather-label").remove()
+      d3.selectAll("text.weather-label").remove()
+      d3.selectAll("rect.weather-label-box").remove()
     },
 
     toggleWeatherGraph() {
@@ -350,10 +363,9 @@ export default {
       const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ")
 
       let currCaseData = this.caseData
-
       const xScale = d3
         .scaleTime()
-        .range([0, this.chart_config.width])
+        .range([0, this.chart_config.width - this.chart_config.margin * 2])
         .domain(d3.extent(currCaseData, (d) => parseTime(d.Date)))
 
       const yScaleCases = this.yScaling
@@ -388,32 +400,34 @@ export default {
             `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
           )
           .attr("d", lineCases)
+          
+        if(this.chart_config.renderDots) {
+          this.linechartSvg
+            .append("g")
+            .attr("id", `cases-dots-${caseType}`)
+            .attr("class", `cases-dots ${hidden}`)
+            .attr(
+              "transform",
+              `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
+            )
+            .selectAll("dot")
+            .data(currCaseData)
+            .enter()
+            .append("circle")
+            .attr("class", "single-dot")
+            .attr("cx", (d) => xScale(parseTime(d.Date)))
+            .attr("cy", (d) => yScaleCases(d[caseType]))
+            .attr("r", 3)
+            .attr("fill", this.chart_config.colors[caseType])
+            .attr("stroke", "white")
+            .attr("stroke-width", 2)
+            .attr("type", caseType)
 
-        this.linechartSvg
-          .append("g")
-          .attr("id", `cases-dots-${caseType}`)
-          .attr("class", `cases-dots ${hidden}`)
-          .attr(
-            "transform",
-            `translate( ${this.chart_config.margin}, ${this.chart_config.margin})`
-          )
-          .selectAll("dot")
-          .data(currCaseData)
-          .enter()
-          .append("circle")
-          .attr("class", "single-dot")
-          .attr("cx", (d) => xScale(parseTime(d.Date)))
-          .attr("cy", (d) => yScaleCases(d[caseType]))
-          .attr("r", 3)
-          .attr("fill", this.chart_config.colors[caseType])
-          .attr("stroke", "white")
-          .attr("stroke-width", 2)
-          .attr("type", caseType)
-
-        d3.selectAll(".single-dot")
-          .on("mouseover", this.drawHoverTooltip)
-          .on("mouseleave", this.removeHoverTooltip)
-          .on("mousemove", this.moveHoverTooltip)
+          d3.selectAll(".single-dot")
+            .on("mouseover", this.drawHoverTooltip)
+            .on("mouseleave", this.removeHoverTooltip)
+            .on("mousemove", this.moveHoverTooltip)
+        }
 
         // yAxis cases
         this.linechartSvg
@@ -430,6 +444,7 @@ export default {
         .append("rect")
         .attr("x", this.chart_config.margin / 2 - 20)
         .attr("y", this.chart_config.margin - 30)
+        .attr("class", "cases-label-box")
         .attr("width", 10)
         .attr("height", 10)
         .style("fill", this.chart_config.colors["cases"])
@@ -449,7 +464,8 @@ export default {
       // Remove case chart elements
       d3.selectAll("path.cases-line").remove()
       d3.selectAll("g.cases-dots").remove()
-      d3.selectAll("g.cases-axis").remove()
+      d3.selectAll("g.cases-axis").remove()      
+      d3.selectAll("rect.cases-label-box").remove()
       d3.selectAll("text.cases-label").remove()
     },
 
@@ -479,12 +495,14 @@ export default {
 
       const xScale = d3
         .scaleTime()
-        .range([0, this.chart_config.width])
+        .range([0, this.chart_config.width - this.chart_config.margin * 2])
         .domain(
           d3.extent(this.cases[this.countrySelect], (d) => parseTime(d.Date))
         )
 
-      const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b"))
+      const xAxis = d3.axisBottom(xScale)
+        .tickFormat(d3.timeFormat("%b"))
+        .ticks(this.chart_config.timeTicks)
 
       // x Axis (Time)
       this.linechartSvg
@@ -535,8 +553,21 @@ export default {
       this.drawHoverTooltip(event, data)
     },
 
+    setResponsiveSizes() {
+      this.chart_config.labelSize = window.innerWidth <= 550 ? 10 : 15
+      this.chart_config.strokeWidth = window.innerWidth <= 550 ? 2 : 4
+      this.chart_config.timeTicks = window.innerWidth <= 550 ? 4 : 12
+      this.chart_config.weatherLabelDistance = window.innerWidth <= 550 ? 80 : 125
+
+      this.chart_config.renderDots = window.innerWidth > 750 
+
+      this.chart_config.margin = window.innerWidth <= 750 ? 50 : this.chart_config.maxMargin
+      this.chart_config.width = window.innerWidth <= 450 ? window.innerWidth  : this.linechartContainer.style('width').slice(0, -2) - this.chart_config.margin * 2      
+      this.chart_config.height = window.innerWidth <= 650 ? window.innerHeight * 0.35 - this.chart_config.margin * 2 : window.innerHeight * 0.65 - this.chart_config.margin * 2
+    },
+
     handleResize() {
-      this.chart_config.labelSize = window.innerWidth <= 450 ? 25 : 20
+      this.setResponsiveSizes()
       this.removeWeatherGraph()
       this.drawWeatherGraph()
       this.removeCasesGraph()
@@ -605,6 +636,7 @@ input.weather-switch {
 .toggle-label {
   @apply text-xs;
   @apply xs:text-base;
+  @apply mx-1;
 }
 
 #weather-toggle {
