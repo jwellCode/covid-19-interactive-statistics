@@ -27,7 +27,7 @@
 
     <a
       class="mb-4 md:text-lg text-left text-black block underline"
-      href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7280824/"
+      href="https://journals.sagepub.com/doi/full/10.1177/0309133320946302"
       target="_blank"
     >
       Paper 3: The effect of climate on the spread of the COVID-19 pandemic: A
